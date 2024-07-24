@@ -1,19 +1,8 @@
 -- CreateEnum
-CREATE TYPE "Size" AS ENUM ('SMALL', 'MEDIUM', 'LARGE', 'EXTRALARGE', 'UNIQUE');
-
--- CreateEnum
-CREATE TYPE "Categories" AS ENUM ('macetas', 'floreros', 'lamparas', 'otros');
+CREATE TYPE "Size" AS ENUM ('small', 'medium', 'large', 'extralarge', 'unique');
 
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
-
--- CreateTable
-CREATE TABLE "Category" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
-);
 
 -- CreateTable
 CREATE TABLE "InStock" (
@@ -22,18 +11,17 @@ CREATE TABLE "InStock" (
     "price" DOUBLE PRECISION NOT NULL,
     "oldPrice" DOUBLE PRECISION,
     "productId" TEXT NOT NULL,
+    "colors" TEXT[],
 
     CONSTRAINT "InStock_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Color" (
+CREATE TABLE "Category" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "stock" INTEGER NOT NULL,
-    "inStockId" TEXT NOT NULL,
 
-    CONSTRAINT "Color_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -46,7 +34,7 @@ CREATE TABLE "Product" (
     "enabled" BOOLEAN NOT NULL DEFAULT true,
     "useStock" BOOLEAN NOT NULL DEFAULT false,
     "images" TEXT[],
-    "categoryId" TEXT NOT NULL,
+    "category" TEXT NOT NULL,
     "sizes" "Size"[] DEFAULT ARRAY[]::"Size"[],
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
@@ -149,7 +137,7 @@ CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
 CREATE UNIQUE INDEX "Product_slug_key" ON "Product"("slug");
 
 -- CreateIndex
-CREATE INDEX "Product_categoryId_idx" ON "Product"("categoryId");
+CREATE INDEX "Product_category_idx" ON "Product"("category");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
@@ -164,10 +152,7 @@ CREATE UNIQUE INDEX "OrderAddress_orderId_key" ON "OrderAddress"("orderId");
 ALTER TABLE "InStock" ADD CONSTRAINT "InStock_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Color" ADD CONSTRAINT "Color_inStockId_fkey" FOREIGN KEY ("inStockId") REFERENCES "InStock"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_category_fkey" FOREIGN KEY ("category") REFERENCES "Category"("name") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ProductImage" ADD CONSTRAINT "ProductImage_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
