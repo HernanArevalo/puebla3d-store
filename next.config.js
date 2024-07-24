@@ -8,11 +8,15 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'as2.ftcdn.net',
+        hostname: 'i.imgur.com',
       },
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'as2.ftcdn.net',
       },
     ],
   }
