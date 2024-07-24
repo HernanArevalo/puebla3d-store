@@ -29,7 +29,7 @@ interface SeedInStock {
     size: ValidSizes;
     price: number;
     oldPrice?: number;
-    colors: Record<string, number>;
+    colors: string[];
 }
 
 interface SeedData {
@@ -71,19 +71,13 @@ export const initialData: SeedData = {
                     size: 'medium',
                     price: 9000,
                     oldPrice: 10000,
-                    colors: {
-                        naranja: 8,
-                        rosa: 5
-                    }
+                    colors: [ 'naranja', 'rosa' ]
                 },
                 {
                     size: 'large',
                     price: 9500,
                     oldPrice: 10500,
-                    colors: {
-                        naranja: 2,
-                        rosa: 7
-                    }
+                    colors: [ 'naranja', 'rosa' ]
                 }
             ],
             sizes: ['medium', 'large', 'extralarge'],
