@@ -1,12 +1,11 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { Category } from '@prisma/client';
 
 interface PaginationOptions {
   page?: number;
   take?: number;
-  category?: Category;
+  category?: string;
 }
 
 export const getPaginatedProductsWithImages = async ({
@@ -32,12 +31,12 @@ export const getPaginatedProductsWithImages = async ({
             url: true,
           },
         },
-        inStock: {
-          include: {
-            colors: true
-          }
-        },
-        category: { }
+        // inStock: {
+        //   include: {
+        //     colors: true
+        //   }
+        // },
+        // category: { }
       },  
     });
 
@@ -48,25 +47,36 @@ export const getPaginatedProductsWithImages = async ({
     });
     const totalPages = Math.ceil(productsQuantity / take);
 
+    const productsWithDetails = await Promise.all(products.map(async (product) => {
+      const allColors = new Set<string>();
+      let minPrice = Infinity;
+  
+      const productStock = await prisma.inStock.findMany({
+        where: {
+          productId: product.id
+        }
+      });
+  
+      productStock.forEach(stock => {
+        stock.colors.forEach(color => allColors.add(color));
+        if (stock.price < minPrice) minPrice = stock.price;
+      });
+
+      const { ProductImage, ...productRest} = product 
+  
+      return {
+        ...productRest,
+        images: product.ProductImage.map(image => image.url),
+        colors: Array.from(allColors),
+        price: minPrice,
+      };
+    }));
+  
     return {
       currentPage: page,
       totalPages: totalPages,
-      products: products.map(product => {
-        const allColors = new Set<string>();
-        let minPrice = Infinity;
-
-        product.inStock.forEach(stock => {
-          stock.colors.forEach(color => allColors.add(color.name));
-          if (stock.price < minPrice) minPrice = stock.price;
-        });
-
-        return {
-          ...product,
-          images: product.ProductImage.map(image => image.url),
-          colors: Array.from(allColors),
-          price: minPrice,
-        };
-      })
+      products: productsWithDetails,
+    
     };
 
   } catch (e) {
