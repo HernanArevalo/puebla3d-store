@@ -35,12 +35,9 @@ export interface Product {
   tags: string[];
   enabled: boolean;
   useStock: boolean;
-  images: string[];
-  categoryId: string;
   sizes: ValidSizes[];
-  ProductImage: ProductImage[];
-  inStock: InStock[];
-  category: Category;
+  category: string;
+  images: any;
   colors: string[];
   price: number;
 }
