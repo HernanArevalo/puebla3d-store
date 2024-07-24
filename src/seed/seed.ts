@@ -60,8 +60,8 @@ export const initialData: SeedData = {
         {
             description: "Maceta Pouder",
             images: [
-                'https://i.imgur.com/bqMlfHW.jpeg',
-                'https://i.imgur.com/50RbtP1.png',
+                'https://res.cloudinary.com/dabmixcta/image/upload/v1721690228/vxufarcg9itxxqisqyfe.jpg',
+                'https://res.cloudinary.com/dabmixcta/image/upload/v1721690228/jgdn3devoktbe2iwh8k1.jpg',
             ],
             enabled: true,
             category: "macetas",
