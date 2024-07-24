@@ -21,8 +21,7 @@ export default async function Home({ searchParams }: Props) {
     redirect('/');
   }
 
-  console.log(products);
-
+  
   return (
     <>
       <Title title="Tienda" subtitle="Todos los productos" className="mb-2" />
