@@ -7,7 +7,6 @@ import {
   IoLogOutOutline,
   IoPeopleOutline,
   IoPersonOutline,
-  IoSearchOutline,
   IoShirtOutline,
   IoTicketOutline,
 } from 'react-icons/io5';
@@ -54,8 +53,10 @@ export const Sidebar = () => {
             size={50}
             className="top-5 right-5 cursor-pointer"
             onClick={closeSideMenu}
+            color='white'
           />
         </div>
+        <div className="w-full h-px bg-gray-200 my-10 text-puebla-dark" />
 
         {/* Input */}
         {/* <div className="relative mt-14">
@@ -69,7 +70,6 @@ export const Sidebar = () => {
         {/* Menu */}
         { isAuthenticated ? (
           <>
-            <div className="w-full h-px bg-gray-200 my-10 text-puebla-dark" />
 
             <Link
               href={'/profile'}
