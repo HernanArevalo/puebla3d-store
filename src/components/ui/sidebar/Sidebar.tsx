@@ -74,8 +74,7 @@ export const Sidebar = () => {
             </button>
           </>
         ) : (
-          <div className="w-fit p-3 flex items-center gap-3 mt-10 bg-gray-100 rounded transition-all">
-            <button className="flex items-center" onClick={() => signIn('google')}>
+            <button className="w-fit p-3 flex items-center gap-1 bg-gray-100 rounded transition-all" onClick={() => signIn('google')}>
               <Image
                 loading="lazy"
                 height="24"
