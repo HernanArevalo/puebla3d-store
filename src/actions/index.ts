@@ -5,6 +5,8 @@ export * from './address/set-user-address'
 
 export * from './categories/get-categories'
 
+export * from './codes/get-codes'
+
 export * from './country/get-countries'
 
 export * from './order/get-order'
