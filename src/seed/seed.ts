@@ -37,6 +37,15 @@ interface SeedData {
     categories: string[];
     products: SeedProduct[];
     countries: SeedCountry[];
+    discountCode: SeedDiscountCode[]
+}
+
+interface SeedDiscountCode {
+    code: string;
+    description?: string;
+    discount: number;
+    isActive?: boolean;
+    usageLimit?: number
 }
 
 export const initialData: SeedData = {
@@ -54,6 +63,19 @@ export const initialData: SeedData = {
         'lámparas',
         'otros',
         'sale'
+    ],
+    discountCode: [
+        {
+            code: "INVIERNO",
+            discount: 10,
+            isActive: true,
+        },
+        {
+            code: "HOTWEEK25",
+            discount: 25,
+            isActive: true,
+            usageLimit: 10
+        }
     ],
     countries: countries,
     products: [

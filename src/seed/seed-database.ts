@@ -13,13 +13,18 @@ async function main() {
     await prisma.user.deleteMany();
     await prisma.country.deleteMany();
 
+    await prisma.discountCode.deleteMany();
     await prisma.productImage.deleteMany();
     await prisma.inStock.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
 
-    const { categories, products, users, countries } = initialData;
+    const { categories, products, users, countries, discountCode } = initialData;
 
+    //* discountCode
+    await prisma.discountCode.createMany({
+        data: discountCode
+    });
     //* users
     await prisma.user.createMany({
         data: users
