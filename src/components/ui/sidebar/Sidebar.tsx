@@ -67,7 +67,7 @@ export const Sidebar = () => {
             </Link>
             <button
               className="flex items-center w-full mt-10 p-2 hover:bg-gray-100 rounded transition-all gap-3"
-              onClick={() => signOut()}
+              onClick={() => signOut({callbackUrl:'/'})}
             >
               <IoLogOutOutline size={30} />
               <span className="text-xl">Cerrar sesión</span>
