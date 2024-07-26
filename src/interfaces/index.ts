@@ -1,4 +1,5 @@
 export * from './address.interface';
+export * from './code.interface';
 export * from './country.interface';
 export * from './category.interface';
 export * from './paypal.interface';
