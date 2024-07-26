@@ -20,11 +20,6 @@ export interface ProductImage {
   url: string;
 }
 
-export interface Category {
-  id: string;
-  name: string;
-}
-
 export type ValidSizes = 'small' | 'medium' | 'large' | 'extralarge' | 'unique';
 
 export interface Product {
@@ -40,4 +35,14 @@ export interface Product {
   images: any;
   colors: string[];
   price: number;
+}
+
+export interface CartProduct {
+  id: string;
+  price: number;
+  size: ValidSizes;
+  slug: string;
+  title: string;
+  quantity: number;
+  image: string;
 }
