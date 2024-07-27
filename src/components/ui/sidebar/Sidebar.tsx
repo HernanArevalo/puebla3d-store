@@ -84,7 +84,6 @@ export const Sidebar = () => {
               />
               <span className="text-xl ml-2">Inicia sesión</span>
             </button>
-          </div>
         )}
         {isAdmin && (
           <>
