@@ -1,5 +1,6 @@
 'use server';
 
+import { discountCode } from '@/interfaces';
 import prisma from '@/lib/prisma';
 
 
@@ -10,7 +11,7 @@ export const getCodes = async () => {
 
     const codes = await prisma.discountCode.findMany();
 
-    return codes;
+    return codes as discountCode[];
   } catch (e) {
     throw new Error('load failed');
   }
