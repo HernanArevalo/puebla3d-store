@@ -1,6 +1,7 @@
 "use server"
 import { discountCode } from "@/interfaces";
 import prisma from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const codeSchema = z.object({
@@ -46,6 +47,7 @@ export const createUpdateCode = async(formData: FormData) => {
       })
     }
 
+    revalidatePath('/admin/codes')
     return {
       ok: true,
       code: code
