@@ -3,6 +3,8 @@ export const revalidate = 0;
 import { Title } from '@/components';
 import Link from 'next/link';
 import { CodesTable } from './components';
+import { createCode } from '@/actions';
+import { NewCodeButton } from './components/NewCodeButton';
 
 
 export default function OrdersPage() {
@@ -12,9 +14,7 @@ export default function OrdersPage() {
       <Title title="Códigos de descuento" />
 
       <div className="flex justify-end mb-5">
-        <Link href='/admin/product/new' className="btn-dark">
-          Nuevo código
-        </Link>
+        <NewCodeButton />
       </div>
 
       <div className="mb-10">
