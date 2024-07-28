@@ -1,22 +1,14 @@
 'use client';
 import { titleFont } from '@/config/fonts';
-import { useCartStore, useUiStore } from '@/store';
+import { useUiStore } from '@/store';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { HiMiniShoppingBag } from 'react-icons/hi2';
 import { IoMenu } from 'react-icons/io5';
+import { CartLogo } from './components/CartLogo';
 
 export const TopMenu = () => {
   const openSideMenu = useUiStore((state) => state.openSideMenu);
-  const totalItemsInCart = useCartStore((state) => state.getTotalItems());
-
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   const { data:session } = useSession();
 
@@ -62,19 +54,7 @@ export const TopMenu = () => {
 
         <div className='flex items-center gap-3 justify-center'>
 
-          <Link href={
-            (totalItemsInCart > 0 && loaded) ?
-              '/cart' :
-              '/empty'} className='m-2'>
-            <div className='relative'>
-              {totalItemsInCart > 0 && loaded && (
-                <span className='fade-in absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-puebla-dark text-white'>
-                  {totalItemsInCart}
-                </span>
-              )}
-              <HiMiniShoppingBag className='w-5 h-5' />
-            </div>
-          </Link>
+          <CartLogo />
           
           <div className="rounded-md flex flex-col items-end gap-0 p-2 duration-500 transition-all font-bold"
           >
