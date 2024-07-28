@@ -7,6 +7,7 @@ export * from './categories/get-categories'
 
 export * from './codes/create-code'
 export * from './codes/update-code'
+export * from './codes/delete-code'
 export * from './codes/get-codes'
 
 export * from './country/get-countries'
