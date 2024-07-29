@@ -2,6 +2,7 @@
 
 import { createUpdateCode, deleteCode } from '@/actions';
 import { discountCode } from '@/interfaces'
+import { formatDate } from '@/utils';
 import clsx from 'clsx';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -11,11 +12,24 @@ interface Props {
   discount: discountCode;
 }
 
+interface discountForm {
+  id:           string,
+  code:         string,
+  description?: string | null,
+  discount:     number | any,
+  expiresAt?:   Date | null | string,
+  createdAt:    Date,
+  updatedAt:    Date,
+  isActive:     boolean,
+  usageLimit?:  number | null,
+  usageCount:   number,
+
+}
+
 export const CodeRow = ({ discount }: Props) => {
   const [hasCodeChanged, setHasCodeChanged] = useState(false)
   const [useExpiration, setUseExpiration] = useState(!!discount.expiresAt)
   const [useLimitUses, setUseLimitUses] = useState(!!discount.usageLimit)
-
 
   const {
     handleSubmit,
@@ -25,29 +39,35 @@ export const CodeRow = ({ discount }: Props) => {
     setValue,
     watch
 
-  } = useForm<discountCode>({
+  } = useForm<discountForm>({
     defaultValues: {
       ...discount,
+      expiresAt: discount.expiresAt? formatDate(discount.expiresAt) : null
     },
   });
   watch('isActive')
 
-
-  const onSavingCode = async(data: discountCode) => {
+  const onSavingCode = async(data: discountForm) => {
     const formData = new FormData();
 
 
     if(useExpiration){
+      if (data.expiresAt) {
       formData.append('expiresAt', data.expiresAt!.toString())
+      }else{
+        setUseExpiration(false)
+      }
     }
     if(useLimitUses){
-      formData.append('usageLimit', data.usageLimit!.toString())
+      if (data.usageLimit) {
+        formData.append('usageLimit', data.usageLimit!.toString())
+      }else{
+        setUseLimitUses(false)
+      }
     }
     formData.append('id', data.id)
     formData.append('code', data.code.toString())
     formData.append('discount', data.discount.toString())
-    formData.append('updatedAt', new Date().toString())
-    formData.append('createdAt', data.createdAt.toString())
     formData.append('isActive', data.isActive.toString())
     formData.append('usageCount', data.usageCount.toString())
 
@@ -126,7 +146,7 @@ export const CodeRow = ({ discount }: Props) => {
           <input type="checkbox" 
                  className="accent-puebla-dark transition-all cursor-pointer disabled:text-gray-500" 
                  checked={useExpiration} 
-                 onChange={()=>{setUseExpiration(!useExpiration)}}
+                 onChange={()=>{setUseExpiration(!useExpiration); setHasCodeChanged(true)}}
                  />
           <input type="datetime-local"
             {...register('expiresAt', { onChange: ()=>setHasCodeChanged(true) })}
@@ -151,7 +171,7 @@ export const CodeRow = ({ discount }: Props) => {
 
       <td className="text-sm text-gray-900 font-bold py-4 whitespace-nowrap text-center">
         <div className="flex justify-center gap-3">
-          <input type="checkbox" className="accent-puebla-dark transition-all cursor-pointer" checked={useLimitUses} onChange={()=>{setUseLimitUses(!useLimitUses)}}/>
+          <input type="checkbox" className="accent-puebla-dark transition-all cursor-pointer" checked={useLimitUses} onChange={()=>{setUseLimitUses(!useLimitUses); setHasCodeChanged(true)}}/>
 
           <input type="number" 
                  className="w-16 focus:bg-puebla-blue focus:outline-none transition-all disabled:text-gray-500"
