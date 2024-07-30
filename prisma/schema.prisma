@@ -32,10 +32,20 @@ model InStock {
   price     Float
   oldPrice  Float?
   productId String
-  colors    String[]
-
+  colors    Color[] // Cambiar de String[] a Color[] para la relación
+  
   //* relations
   Product   Product @relation(fields: [productId], references: [id])
+}
+
+model Color {
+  id       String @id @default(uuid())
+  name     String
+  quantity Int
+
+  //* relaciones
+  inStock  InStock @relation(fields: [inStockId], references: [id])
+  inStockId String
 }
 
 
@@ -69,8 +79,8 @@ model Product {
   slug            String   @unique
   tags            String[] @default([])
   enabled         Boolean  @default(true)
+  unique          Boolean
   useStock        Boolean  @default(false)
-  images          String[]
 
   //* relations
   categoryName    Category @relation(fields: [category], references: [name])
@@ -79,7 +89,7 @@ model Product {
   ProductImage    ProductImage[]
   OrderItem       OrderItem[]
   inStock         InStock[]
-  sizes           Size[]         @default([])
+  // sizes           Size[]         @default([])
 
   @@index([category])
 }
