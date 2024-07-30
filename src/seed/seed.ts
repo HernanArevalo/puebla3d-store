@@ -30,7 +30,7 @@ type ValidSizes = typeof validSizes[number];
 
 interface SeedColors {
     name: string;
-    quantity: number
+    stock: number
 }
 interface SeedInStock {
     size: ValidSizes;
@@ -102,8 +102,8 @@ export const initialData: SeedData = {
                     price: 9000,
                     oldPrice: 10000,
                     colors: [
-                        { name: 'naranja', quantity: 10 },
-                        { name: 'rosa', quantity: 5 }
+                        { name: 'naranja', stock: 10 },
+                        { name: 'rosa', stock: 5 }
                     ]
                 },
                 {
@@ -111,7 +111,7 @@ export const initialData: SeedData = {
                     price: 9500,
                     oldPrice: 10500,
                     colors: [
-                        { name: 'rosa', quantity: 3 }
+                        { name: 'rosa', stock: 3 }
                     ]
                 }
             ],
