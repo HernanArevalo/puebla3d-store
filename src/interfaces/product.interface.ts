@@ -7,7 +7,8 @@ export interface ProductColor {
   inStockId: string;
 }
 
-export interface InStock {
+
+export interface ProductInStock {
   id: string;
   size: ValidSizes;
   price: number;
@@ -30,11 +31,9 @@ export interface Product {
   tags: string[];
   enabled: boolean;
   useStock: boolean;
-  sizes: ValidSizes[];
   category: string;
   images: any;
-  colors: string[];
-  price: number;
+  inStock: ProductInStock[]
 }
 
 export interface CartProduct {
