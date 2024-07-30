@@ -43,7 +43,7 @@ model Color {
   name     String
   stock    Int @default(1)
 
-  //* relaciones
+  //* relations
   inStock  InStock @relation(fields: [inStockId], references: [id])
   inStockId String
 }
