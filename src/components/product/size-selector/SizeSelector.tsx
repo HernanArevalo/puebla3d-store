@@ -10,15 +10,18 @@ interface Props {
 export const SizeSelector = ({ selectedSize, availableSizes, onSizeChanged }: Props) => {
   return (
     <div className=''>
-      <h3 className='font-bold mb-4'>Size</h3>
+      <h3 className='font-bold mb-2'>Tamaño</h3>
 
       <div className='flex gap-2'>
         {availableSizes.map((size) => (
           <button
 					key={size}
 					onClick={() => onSizeChanged(size)}
-            className={clsx('hover:underline text-lg p-1 rounded min-w-[32px]', {
-              'bg-gray-200 font-semibold': size === selectedSize,
+            className={
+              clsx('capitalize hover:bg-puebla-dark text-lg px-2 rounded min-w-[32px] transition-all', {
+                'text-black font-normal': size !== selectedSize,
+                'bg-puebla-dark text-white font-semibold': size === selectedSize,
+  
             })}
           >
             {size}
