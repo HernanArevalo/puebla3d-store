@@ -1,11 +1,10 @@
-import { Size } from '@/interfaces';
 import clsx from 'clsx';
 
 interface Props {
-  selectedSize?: Size;
-  availableSizes: Size[];
+  selectedSize?: string;
+  availableSizes: string[];
 
-  onSizeChanged: (size: Size) => void;
+  onSizeChanged: (size: string) => void;
 }
 
 export const SizeSelector = ({ selectedSize, availableSizes, onSizeChanged }: Props) => {
