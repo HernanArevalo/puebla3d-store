@@ -2,15 +2,18 @@ import { SeedCountry, countries } from './seed-countries';
 
 type validCategories = "macetas" | "floreros" | "lamparas" | "otros"
 
+
+
 interface SeedProduct {
     title: string;
     description: string;
     slug: string;
     images: string[];
     enabled: boolean;
+    unique: boolean;
     useStock: boolean;
     inStock: SeedInStock[];
-    sizes: ValidSizes[];
+    // sizes: ValidSizes[];
     tags: string[];
     category: validCategories;
 }
@@ -25,11 +28,15 @@ interface SeedUser {
 const validSizes = ['small', 'medium', 'large', 'extralarge', 'unique'] as const;
 type ValidSizes = typeof validSizes[number];
 
+interface SeedColors {
+    name: string;
+    quantity: number
+}
 interface SeedInStock {
     size: ValidSizes;
     price: number;
     oldPrice?: number;
-    colors: string[];
+    colors: SeedColors[];
 }
 
 interface SeedData {
@@ -86,6 +93,7 @@ export const initialData: SeedData = {
                 'https://res.cloudinary.com/dabmixcta/image/upload/v1721690228/jgdn3devoktbe2iwh8k1.jpg',
             ],
             enabled: true,
+            unique: false,
             category: "macetas",
             useStock: true,
             inStock: [
@@ -93,19 +101,24 @@ export const initialData: SeedData = {
                     size: 'medium',
                     price: 9000,
                     oldPrice: 10000,
-                    colors: [ 'naranja', 'rosa' ]
+                    colors: [
+                        { name: 'naranja', quantity: 10 },
+                        { name: 'rosa', quantity: 5 }
+                    ]
                 },
                 {
                     size: 'large',
                     price: 9500,
                     oldPrice: 10500,
-                    colors: [ 'naranja', 'rosa' ]
+                    colors: [
+                        { name: 'rosa', quantity: 3 }
+                    ]
                 }
             ],
-            sizes: ['medium', 'large', 'extralarge'],
             slug: "maceta_pouder",
             tags: ['maceta'],
             title: "Maceta Pouder",
         },
     ]
+    
 };
