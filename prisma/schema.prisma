@@ -41,7 +41,7 @@ model InStock {
 model Color {
   id       String @id @default(uuid())
   name     String
-  quantity Int
+  stock    Int @default(1)
 
   //* relaciones
   inStock  InStock @relation(fields: [inStockId], references: [id])
