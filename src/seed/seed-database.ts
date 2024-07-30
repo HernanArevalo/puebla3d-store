@@ -15,6 +15,7 @@ async function main() {
 
     await prisma.discountCode.deleteMany();
     await prisma.productImage.deleteMany();
+    await prisma.color.deleteMany();
     await prisma.inStock.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
@@ -66,7 +67,7 @@ async function main() {
 
         //* inStock
         for (const stock of inStock) {
-            const { ...restStock } = stock;
+            const { colors, ...restStock } = stock;
             const dbInStock = await prisma.inStock.create({
                 data: {
                     ...restStock,
@@ -74,7 +75,19 @@ async function main() {
                 }
             });
 
+            for (const color of colors){
+                const dbColor = await prisma.color.createMany({
+                    data: {
+                        ...color,
+                        inStockId: dbInStock.id
+                    }
+                })
+            }
+
         }
+        //* Colors
+        
+
     }
 
     console.log('Seed executed properly');
