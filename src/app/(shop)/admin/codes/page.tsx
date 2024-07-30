@@ -1,10 +1,7 @@
 export const revalidate = 0;
 
 import { Title } from '@/components';
-import Link from 'next/link';
-import { CodesTable } from './components';
-import { createCode } from '@/actions';
-import { NewCodeButton } from './components/NewCodeButton';
+import { NewCodeButton, CodesTable } from '@/components/discount-codes';
 
 
 export default function OrdersPage() {
