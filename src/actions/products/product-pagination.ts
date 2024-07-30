@@ -58,7 +58,6 @@ export const getPaginatedProductsWithImages = async ({
       });
   
       productStock.forEach(stock => {
-        stock.colors.forEach(color => allColors.add(color));
         if (stock.price < minPrice) minPrice = stock.price;
       });
 
