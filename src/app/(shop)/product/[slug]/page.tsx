@@ -3,8 +3,6 @@ export const revalidate = 10080
 import type { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from "next/navigation";
 
-import { titleFont } from "@/config/fonts";
-
 import { getProductBySlug } from "@/actions";
 import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from "@/components";
 import { AddToCart } from './ui/AddToCart';
@@ -41,14 +39,12 @@ export async function generateMetadata(
   }
 }
 
-
-
 export default async function ProductPage({ params }: Props) {
 
   const { slug } = params;
   const product = await getProductBySlug(slug)
 
-  if (!product) {
+  if (!product || !product?.enabled ) {
     notFound();
   }
 
@@ -70,28 +66,21 @@ export default async function ProductPage({ params }: Props) {
           images={ product.images }
           className="hidden md:block h-full max-h-[90vh]"
         />
-
-        
       </div>
 
       {/* Details  */}
       <div className="col-span-1 px-5">
         
-        { product.inStock &&
+        {/* { product.inStock.length > 0 && 
           <StockLabel slug={product.slug}/>
+        } */}
 
-        }
 
-        <h1 className={`${ titleFont.className } antialiased font-bold text-xl`}>
-          {product.title}
-        </h1>
-
-        <p className="text-lg mb-5">${product.price}</p>
 
         <AddToCart product={product}/>
 
         {/* Description */}
-        <h3 className="font-bold text-sm">Description</h3>
+        <h3 className="font-bold text-sm">Descripción</h3>
         <p className="font-light">{product.description}</p>
 
 
