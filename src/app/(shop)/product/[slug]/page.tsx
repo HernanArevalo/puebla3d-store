@@ -1,42 +1,43 @@
-export const revalidate = 10080
+export const revalidate = 10080;
 
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata, ResolvingMetadata } from 'next';
 import { notFound } from "next/navigation";
-
 import { getProductBySlug } from "@/actions";
-import { ProductMobileSlideshow, ProductSlideshow, StockLabel } from "@/components";
+import { ProductMobileSlideshow, ProductSlideshow } from "@/components";
 import { AddToCart } from './ui/AddToCart';
+import getConfig from 'next/config';
 
+const { publicRuntimeConfig } = getConfig();
 
 interface Props {
   params: {
-    slug: string,
-  }
+    slug: string;
+  };
 }
-
 
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
-  const { slug } = params
- 
-  // fetch data
-  const product = await getProductBySlug(slug)
- 
-  // optionally access and extend (rather than replace) parent metadata
-  // const previousImages = (await parent).openGraph?.images || []
- 
+  const { slug } = params;
+  const product = await getProductBySlug(slug);
+
+  const metadataBase = publicRuntimeConfig.metadataBase || 'http://localhost:3000';
+
   return {
     title: product?.title ?? 'Producto no encontrado',
     description: product?.description ?? '',
     openGraph: {
       title: product?.title ?? 'Producto no encontrado',
       description: product?.description ?? '',
-      images: [`/products/${product?.images[1]}`],
+      images: product?.images.map(image => ({
+        url: `${metadataBase}/products/${image}`,
+        width: 800,
+        height: 600,
+        alt: product?.title ?? 'Producto',
+      })) ?? [],
     },
-  }
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
