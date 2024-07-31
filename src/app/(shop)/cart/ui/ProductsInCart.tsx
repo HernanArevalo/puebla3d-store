@@ -50,13 +50,17 @@ export const ProductsInCart = () => {
               className='hover:underline cursor-pointer'
             >
               <p className='font-semibold'>
-                {product.size} - {product.title}
+                {product.title}
+              </p>
+              <p className='font-semibold capitalize'>
+                {product.color} - <span className="capitalize">{product.size}</span>
               </p>
             </Link>
             <p>$ {product.price}</p>
             <QuantitySelector
               quantity={product.quantity}
-              onQuantityChanged={quantity =>  updateProductQuantity(product, quantity)}
+              onQuantityChanged={quantity => updateProductQuantity(product, quantity)} 
+              maxQuantity={product.stock || product.quantity}
             />
 
             <button className='underline' onClick={() => removeProductToCart(product)}>Delete</button>
