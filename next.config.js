@@ -19,8 +19,10 @@ const nextConfig = {
         hostname: 'as2.ftcdn.net',
       },
     ],
-  }
-
+  },
+  publicRuntimeConfig: {
+    metadataBase: 'http://localhost:3000', // Cambia esto a la URL de tu producción
+  },
 }
 
 module.exports = nextConfig
