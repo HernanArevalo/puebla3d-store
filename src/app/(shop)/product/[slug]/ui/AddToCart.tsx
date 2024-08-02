@@ -4,7 +4,7 @@ import { ColorSelector, QuantitySelector, SizeSelector } from '@/components';
 import { titleFont } from '@/config/fonts';
 import { CartProduct, Product, ProductColor, ProductInStock } from '@/interfaces';
 import { useCartStore } from '@/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   product: Product;
@@ -15,9 +15,13 @@ export const AddToCart = ({ product }: Props) => {
   const addProductToCart = useCartStore(state => state.addProductToCart)
 
   const [selectedSize, setSelectedSize] = useState<ProductInStock>(product.inStock[0])
-  const [selectedColor, setSelectedColor] = useState<ProductColor>(selectedSize.colors[0])
+  const [selectedColor, setSelectedColor] = useState<ProductColor>()
 
-  const [availableColors, setAvailableColors] = useState(selectedSize.colors)
+  useEffect(() => {
+    setQuantity(1)
+  }, [selectedSize, selectedColor])
+  
+
 
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -26,14 +30,16 @@ export const AddToCart = ({ product }: Props) => {
 
   const AddToCart = () => {
     setPosted(true);
-    if (!selectedSize) return;
+    if (!selectedSize || !selectedColor) return;
 
     const cartProduct: CartProduct = {
       id: product.id,
       image: product.images[0],
       price: selectedSize.price,
       quantity: quantity,
+      stock: selectedColor.stock,
       size: selectedSize.size,
+      color: selectedColor.name,
       slug: product.slug,
       title: product.title,
     }
@@ -47,8 +53,9 @@ export const AddToCart = ({ product }: Props) => {
   const onChangeSize = (size: string) => {
     const newSize = product.inStock.find(prod => prod.size === size)
     if (newSize) {
+      setSelectedColor(undefined)
       setSelectedSize(newSize)
-      setSelectedColor(selectedSize.colors[0])
+      setPosted(false)
     }
   }
 
@@ -65,21 +72,19 @@ export const AddToCart = ({ product }: Props) => {
         selectedSize={selectedSize.size}
         onSizeChanged={onChangeSize}
       />
-      {posted  &&
-        <p className='text-red-500'>Seleccioná un tamaño</p>
-      }
 
       <ColorSelector
         availableColors={selectedSize.colors}
         selectedColor={selectedColor}
         onColorChanged={(col:ProductColor)=> setSelectedColor(col)}
       />
-
-      {posted &&
-        <p className='text-red-500'>Seleccioná un tamaño</p>
+      {posted && selectedColor == undefined &&
+        <p className='text-red-500 bg-white rounded-md w-fit px-2 py-1 mt-4'>Seleccioná un color y tamaño</p>
       }
+
+
       {/* Quantity picker */}
-      <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
+      <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} maxQuantity={selectedColor?.stock || quantity}  />
 
       {/* Button */}
       <button className='btn-dark my-5' onClick={AddToCart}>
