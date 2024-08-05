@@ -4,20 +4,22 @@ import { IoAddCircleOutline, IoRemoveCircleOutline } from 'react-icons/io5';
 
 interface Props {
   quantity: number;
+  maxQuantity: number;
+
   onQuantityChanged: (quantity: number) => void;
 }
 
-export const QuantitySelector = ({ quantity, onQuantityChanged }: Props) => {
+export const QuantitySelector = ({ quantity, onQuantityChanged, maxQuantity }: Props) => {
     
   const onValueChange = (value: number) => {
-    if (quantity + value < 1) return;
+    if (1 > quantity + value || quantity + value > maxQuantity ) return;
 
     onQuantityChanged(quantity + value);
   };
 
   return (
     <div className='mt-5 mb-2'>
-      <h3 className='font-bold mb-4'>Quantity</h3>
+      <h3 className='font-bold mb-4'>Cantidad</h3>
       <div className='flex gap-3'>
         <button onClick={() => onValueChange(-1)}>
           <IoRemoveCircleOutline size={30} />
