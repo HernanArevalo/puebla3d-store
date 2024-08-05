@@ -40,8 +40,10 @@ export interface CartProduct {
   id: string;
   price: number;
   size: ValidSizes;
+  color: string,
   slug: string;
   title: string;
   quantity: number;
+  stock: number;
   image: string;
 }
