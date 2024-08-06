@@ -1,3 +1,5 @@
+"use client";
+
 import { useCartStore } from '@/store';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
