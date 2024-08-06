@@ -29,13 +29,13 @@ export const OrderSummary = () => {
   },[ items, loaded ])
 
 
-  if(!loaded) return <p>Loading...</p>;
+  if(!loaded) return <p>Cargando...</p>;
 
 
   return (
     <div className='grid grid-cols-2'>
-      <span className="font-semibold">Products</span>
-      <span className='text-right'>{ items !== 1? `${ items } artcicles`: `1 article`}</span>
+      <span className="font-semibold">Productos</span>
+      <span className='text-right'>{ items !== 1? `${ items } artículos`: `1 artículo`}</span>
 
       <span className="font-semibold">Subtotal</span>
       <span className='text-right'>{ currencyFormat(subtotal) }</span>
