@@ -18,7 +18,7 @@ export const ProductsInCart = () => {
   }, []);
 
   if (!loaded) {
-    return <p>Loading...</p>;
+    return <p>Cargando...</p>;
   }
 
 
@@ -39,7 +39,7 @@ export const ProductsInCart = () => {
               src={product.image}
               width={100}
               height={100}
-              style={{ width: '100px', height: '110px' }}
+              style={{ width: '100px', height: '100px' }}
               alt={product.title}
               className='rounded'
             />
@@ -63,7 +63,7 @@ export const ProductsInCart = () => {
               maxQuantity={product.stock || product.quantity}
             />
 
-            <button className='underline' onClick={() => removeProductToCart(product)}>Delete</button>
+            <button className='underline' onClick={() => removeProductToCart(product)}>Borrar</button>
           </div>
         </div>
       ))}
