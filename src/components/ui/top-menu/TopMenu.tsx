@@ -1,16 +1,9 @@
-'use client';
 import { titleFont } from '@/config/fonts';
-import { useUiStore } from '@/store';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IoMenu } from 'react-icons/io5';
-import { CartLogo } from './components/CartLogo';
+import { CartLogo, HiUser, MenuButton } from './components';
 
 export const TopMenu = () => {
-  const openSideMenu = useUiStore((state) => state.openSideMenu);
-
-  const { data:session } = useSession();
 
   return (
     <div className={`${titleFont.className} flex justify-center relative`}>
@@ -58,16 +51,10 @@ export const TopMenu = () => {
           
           <div className="rounded-md flex flex-col items-end gap-0 p-2 duration-500 transition-all font-bold"
           >
-            {session?.user?.name &&
-              <span>¡Hola {session?.user.name.split(' ')[0] }!</span>
-            }
-            <div
-              className='flex flex-row justify-center items-center gap-1 hover:bg-puebla-dark hover:text-puebla-blue p-1 rounded transition-all font-normal cursor-pointer'
-              onClick={openSideMenu}
-            >
-              Menú
-              <IoMenu size={20}/>
-            </div>
+            
+            <HiUser />
+            <MenuButton />
+
           </div>
         </div>
       </nav>
