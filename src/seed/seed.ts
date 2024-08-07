@@ -87,7 +87,7 @@ export const initialData: SeedData = {
     countries: countries,
     products: [
         {
-            description: "Maceta Pouder",
+            description: "Descubre la maceta Pouder, una pieza única que combina formas cuadradas con la delicadeza de una flor vista desde arriba. Ideal para llenar tus espacios de vida y color, creando un ambiente de paz y armonía en cada rincón de tu hogar.",
             images: [
                 'https://res.cloudinary.com/dabmixcta/image/upload/v1721690228/vxufarcg9itxxqisqyfe.jpg',
                 'https://res.cloudinary.com/dabmixcta/image/upload/v1721690228/jgdn3devoktbe2iwh8k1.jpg',
