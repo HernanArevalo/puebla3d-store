@@ -28,7 +28,7 @@ export const ProductsInCart = () => {
     <>
       {productsInCart.map((product) => (
         <div
-          className='flex gap-5 mb-7'
+          className='flex gap-5 mb-7 text-lg'
           key={`${product.slug}-${product.size}`}
         >
           <Link
@@ -52,7 +52,7 @@ export const ProductsInCart = () => {
               <p className='font-semibold'>
                 {product.title}
               </p>
-              <p className='font-semibold capitalize'>
+              <p className='capitalize'>
                 {product.color} - <span className="capitalize">{product.size}</span>
               </p>
             </Link>
