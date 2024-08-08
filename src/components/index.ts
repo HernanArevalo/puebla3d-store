@@ -1,4 +1,6 @@
 
+export * from './auth/SignInButton'
+
 export * from './discount-codes/CodeRow'
 export * from './discount-codes/CodesTable'
 export * from './discount-codes/NewCodeButton'

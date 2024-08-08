@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import {
@@ -16,6 +15,7 @@ import {
 import { useUiStore } from '@/store';
 import { signIn, useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { SignInButton } from '@/components/auth/SignInButton';
 
 export const Sidebar = () => {
   
@@ -74,16 +74,7 @@ export const Sidebar = () => {
             </button>
           </>
         ) : (
-            <button className="w-fit p-3 flex items-center gap-1 bg-gray-100 rounded transition-all" onClick={() => signIn('google')}>
-              <Image
-                loading="lazy"
-                height="24"
-                width="24"
-                src="https://authjs.dev/img/providers/google.svg"
-                alt="Google Logo"
-              />
-              <span className="text-xl ml-2">Inicia sesión</span>
-            </button>
+            <SignInButton />
         )}
         {isAdmin && (
           <>
