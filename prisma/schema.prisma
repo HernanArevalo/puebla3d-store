@@ -124,6 +124,14 @@ model Country {
   UserAddress  UserAddress[]
   OrderAddress OrderAddress[]
 }
+model Province {
+  id   String @id
+  name String
+
+  //* relations 
+  UserAddress  UserAddress[]
+  OrderAddress OrderAddress[]
+}
 
 model UserAddress {
   id         String  @id @default(uuid())
@@ -138,6 +146,8 @@ model UserAddress {
   //* relations
   country   Country @relation(fields: [countryId], references: [id])
   countryId String
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
@@ -197,6 +207,8 @@ model OrderAddress {
   //* relations
   country   Country @relation(fields: [countryId], references: [id])
   countryId String
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String
 
   Order   Order  @relation(fields: [orderId], references: [id])
   orderId String @unique

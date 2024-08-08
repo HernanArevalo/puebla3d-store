@@ -27,6 +27,8 @@ export * from './product/get-stock-by-slug'
 
 export * from './products/product-pagination'
 
+export * from './province/get-provinces'
+
 export * from './users/change-user-role'
 export * from './users/get-paginated-users'
 
