@@ -12,6 +12,7 @@ async function main() {
     await prisma.userAddress.deleteMany();
     await prisma.user.deleteMany();
     await prisma.country.deleteMany();
+    await prisma.province.deleteMany();
 
     await prisma.discountCode.deleteMany();
     await prisma.productImage.deleteMany();
@@ -20,7 +21,7 @@ async function main() {
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
 
-    const { categories, products, users, countries, discountCode } = initialData;
+    const { categories, products, users, countries, discountCode, provinces } = initialData;
 
     //* discountCode
     await prisma.discountCode.createMany({
@@ -34,6 +35,10 @@ async function main() {
     //* countries
     await prisma.country.createMany({
         data: countries
+    });
+    //* provinces
+    await prisma.province.createMany({
+        data: provinces
     });
 
      //* categories

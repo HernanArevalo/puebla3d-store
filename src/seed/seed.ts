@@ -1,4 +1,5 @@
 import { SeedCountry, countries } from './seed-countries';
+import { SeedProvince, provinces } from './seed-provinces';
 
 type validCategories = "macetas" | "floreros" | "lamparas" | "otros"
 
@@ -44,6 +45,7 @@ interface SeedData {
     categories: string[];
     products: SeedProduct[];
     countries: SeedCountry[];
+    provinces: SeedProvince[];
     discountCode: SeedDiscountCode[]
 }
 
@@ -85,6 +87,7 @@ export const initialData: SeedData = {
         }
     ],
     countries: countries,
+    provinces: provinces,
     products: [
         {
             description: "Descubre la maceta Pouder, una pieza única que combina formas cuadradas con la delicadeza de una flor vista desde arriba. Ideal para llenar tus espacios de vida y color, creando un ambiente de paz y armonía en cada rincón de tu hogar.",
