@@ -36,7 +36,7 @@ export default async function CartPage() {
                 </div>
                 :
                 <Link
-                  href='/checkout/adress'
+                  href='/checkout/data'
                   className='flex btn-primary justify-center w-full'
                 >
                   Continuar compra
