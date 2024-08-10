@@ -28,7 +28,7 @@ export const PlaceOrder = () => {
   if (!loaded) {
     return (
       <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
-        <p>Loading...</p>
+        <p>Cargando...</p>
       </div>
     );
   }
@@ -57,42 +57,48 @@ export const PlaceOrder = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
-      <h2 className="text-2xl mb-2 font-semibold">Adress Delivry</h2>
-      <div className="mb-10">
-        <p className="text-xl">
-          {address.firstName} {address.lastName}
-        </p>
-        <p>{address.address}</p>
-        <p>{address.address2}</p>
-        <p>{address.postalCode}</p>
-        <p>
-          {address.city} - {address.country}
-        </p>
-        <p>{address.phone}</p>
+    <div className="bg-white rounded-xl shadow-xl p-7 h-fit flex flex-col gap-6">
+      <div>
+        <h2 className="text-2xl mb-2 font-semibold">Datos del comprador</h2>
+        <div className="">
+          <p className="text-xl">
+            {address.firstName} {address.lastName}
+          </p>
+          <p>{address.address}</p>
+          <p>{address.address2}</p>
+          <p>{address.postalCode}</p>
+          <p>
+            {address.city} - Argentina
+          </p>
+          <p>{address.phone}</p>
+        </div>
+
       </div>
 
       {/* Divider */}
-      <div className="w-full h-0.5 rounded bg-gray-300 mb-10" />
+      <div className="w-full h-0.5 rounded bg-gray-300" />
 
-      <h2 className="text-2xl mb-2 font-semibold">Order resume</h2>
+      <div>
+        <h2 className="text-2xl mb-2 font-semibold">Resumen de la orden</h2>
 
-      <div className="grid grid-cols-2">
-        <span className="font-semibold">Products</span>
-        <span className="text-right">
-          {items !== 1 ? `${items} artcicles` : `1 article`}
-        </span>
+        <div className="grid grid-cols-2">
+          <span className="font-semibold">Productos</span>
+          <span className="text-right">
+            {items !== 1 ? `${items} artcicles` : `1 article`}
+          </span>
 
-        <span className="font-semibold">Subtotal</span>
-        <span className="text-right">{currencyFormat(subtotal)}</span>
+          <span className="font-semibold">Subtotal</span>
+          <span className="text-right">{currencyFormat(subtotal)}</span>
 
-        <span className="font-semibold">Taxes (15%)</span>
-        <span className="text-right">{currencyFormat(tax)}</span>
+          <span className="font-semibold">Impuestos (15%)</span>
+          <span className="text-right">{currencyFormat(tax)}</span>
 
-        <span className="mt-5 text-2xl font-semibold">Total:</span>
-        <span className="mt-5 text-2xl text-right">
-          {currencyFormat(total)}
-        </span>
+          <span className="mt-5 text-2xl font-semibold">Total:</span>
+          <span className="mt-5 text-2xl text-right">
+            {currencyFormat(total)}
+          </span>
+        </div>
+
       </div>
 
       <div className="mt-5 mb-2 w-full">
