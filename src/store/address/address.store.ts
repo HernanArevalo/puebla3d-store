@@ -16,11 +16,13 @@ export const useAddressStore = create<State>()(
         firstName: '',
         lastName: '',
         address: '',
-        adress2: '',
+        address2: '',
         postalCode: '',
         city: '',
+        province: '',
         country: '',
         phone: '',
+        shippingMethod: ''
       },
 
       setAddress: (address) => {
