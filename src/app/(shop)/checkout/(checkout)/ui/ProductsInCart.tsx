@@ -23,7 +23,7 @@ export const ProductsInCart = () => {
       {productsInCart.map((product) => (
         <div
           className="flex gap-5 mb-7"
-          key={`${product.slug}-${product.size}`}
+          key={`${product.slug}-${product.size}-${product.color}`}
         >
           <ProductImage
               src={product.image}
@@ -38,10 +38,13 @@ export const ProductsInCart = () => {
                 {product.title}
               </p>
               <p>
-                Size: <span className="font-semibold">{product.size}</span>
+                Tamaño: <span className="capitalize font-semibold">{product.size}</span>
               </p>
               <p>
-                Quantity: <span className="font-semibold">{product.quantity}</span>
+                Color: <span className="capitalize font-semibold">{product.color}</span>
+              </p>
+              <p>
+                Cantidad: <span className="font-semibold">{product.quantity}</span>
               </p>
             <p className="font-bold">
               {currencyFormat(product.price * product.quantity)}
