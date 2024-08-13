@@ -40,8 +40,8 @@ export const useCartStore = create<State>()(
           0
         );
 
-        const tax = subtotal * 0.15
-        const total = subtotal + tax
+        const tax = subtotal * 0.10
+        const total = subtotal - tax
         const items = cart.reduce((total, item) => (total += item.quantity), 0);
 
         return {
@@ -56,7 +56,7 @@ export const useCartStore = create<State>()(
         const { cart } = get();
 
         const productInCart = cart.some(
-          (item) => item.id === product.id && item.size === product.size
+          (item) => item.id === product.id && item.size === product.size && item.color === product.color
         );
 
         if (!productInCart) {
@@ -65,7 +65,7 @@ export const useCartStore = create<State>()(
         }
 
         const updatedCartProducts = cart.map((item) => {
-          if (item.id === product.id && item.size === product.size) {
+          if (item.id === product.id && item.size === product.size && item.color === product.color) {
             return { ...item, quantity: item.quantity + product.quantity };
           }
           return item;
