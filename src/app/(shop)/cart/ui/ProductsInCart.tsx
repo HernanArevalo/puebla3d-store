@@ -29,7 +29,7 @@ export const ProductsInCart = () => {
       {productsInCart.map((product) => (
         <div
           className='flex gap-5 mb-7 text-lg'
-          key={`${product.slug}-${product.size}`}
+          key={`${product.slug}-${product.size}-${product.color}`}
         >
           <Link
             href={`/product/${product.slug}`}
