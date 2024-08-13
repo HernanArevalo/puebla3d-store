@@ -1,13 +1,16 @@
 'use server';
 
 import { auth } from '@/auth.config';
-import type { Address, Size } from '@/interfaces';
+import type { Address } from '@/interfaces';
 import prisma from '@/lib/prisma';
 
 interface ProductToOrder {
   productId: string;
   quantity: number;
-  size: Size;
+  size: string;
+  color: string;
+  prize: number;
+
 }
 
 export const placeOrder = async (
