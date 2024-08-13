@@ -8,4 +8,5 @@ export interface Address {
   country: string;
   province: string;
   phone: string;
+  shippingMethod: string;
 }
