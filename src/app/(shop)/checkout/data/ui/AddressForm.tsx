@@ -7,7 +7,7 @@ import { deleteUserAddress, setUserAddress } from '@/actions';
 import { Address, Country, Province } from '@/interfaces';
 import { useAddressStore } from '@/store';
 import { useRouter } from 'next/navigation';
-import { SubTitle, Title } from '@/components';
+import { SubTitle } from '@/components';
 
 interface FormInputs {
   firstName: string,
