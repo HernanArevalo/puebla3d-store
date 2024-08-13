@@ -37,14 +37,15 @@ export const OrderSummary = () => {
       <span className="font-semibold">Productos</span>
       <span className='text-right'>{ items !== 1? `${ items } artículos`: `1 artículo`}</span>
 
-      <span className="font-semibold">Subtotal</span>
-      <span className='text-right'>{ currencyFormat(subtotal) }</span>
+      <span className='text-3xl font-semibold'>Total:</span>
+      <span className='text-3xl text-right'>{ currencyFormat(subtotal) }</span>
 
-      <span className="font-semibold">Taxes (15%)</span>
+
+      <span className='mt-10 text-xl font-semibold'>Con transferencia:</span>
+      <span className='mt-10 text-xl text-right'>{currencyFormat(total)}</span>
+
+      <span className="font-semibold">Descuento (10%):</span>
       <span className='text-right'>{ currencyFormat(tax) }</span>
-
-      <span className='mt-5 text-2xl font-semibold'>Total:</span>
-      <span className='mt-5 text-2xl text-right'>{ currencyFormat(total) }</span>
     </div>
   );
 };
