@@ -28,7 +28,7 @@ enum Role {
 
 model InStock {
   id        String  @id @default(uuid())
-  size      Size
+  size      String
   price     Float
   oldPrice  Float?
   productId String
@@ -161,6 +161,7 @@ model Order {
   total    Float
   items    Int
   isPaid   Boolean   @default(false)
+  shippingMethod String
   paidAt   DateTime?
 
   createdAt DateTime @default(now())
@@ -183,7 +184,7 @@ model OrderItem {
   id       String @id @default(uuid())
   quantity Int
   price    Float
-  size     Size
+  size     String
   color    String
 
   //* relations
