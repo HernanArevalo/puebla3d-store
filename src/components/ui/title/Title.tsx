@@ -23,8 +23,25 @@ export const Title = ({ title, subtitle, className }: Props) => {
     </div>
   )
 }
+export const TitleNM = ({ title, subtitle, className }: Props) => {
+  return (
+    <div
+      className={`mt-3 ${className}`}
+    >
+      <h1 className={`${titleFont.className} antialiased text-4xl font-semibold mt-7`}>
+        {title}
+      </h1>
 
-export const SubtitleNoMargin = ({ title, subtitle, className }: Props) => {
+      {subtitle && (
+        <h3 className="text-xl mb-10">
+          {subtitle}
+        </h3>
+      )}
+    </div>
+  )
+}
+
+export const SubtitleNM = ({ title, subtitle, className }: Props) => {
   return (
     <div
       className={`${className}`}
