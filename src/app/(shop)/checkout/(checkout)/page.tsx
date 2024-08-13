@@ -5,7 +5,7 @@ import { PlaceOrder, ProductsInCart } from "./ui";
 
 export default function CheckoutPage() {
   return (
-    <div className="flex justify-center items-start mb-72 px-10 sm:px-10">
+    <div className="flex justify-center items-start mb-24 px-10 sm:px-10">
       
       <div className="flex flex-col w-[1000px]">
         <Title title="Verificar Orden"/>
