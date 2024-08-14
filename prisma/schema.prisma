@@ -153,16 +153,25 @@ model UserAddress {
   userId String @unique
 }
 
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  PRODUCTION
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum ShippingMethod {
+  RETIRO
+  CADETE
+  CORREO
+}
+
 //* purchase order
 model Order {
-  id       String    @id @default(uuid())
-  subTotal Float
-  tax      Float
-  total    Float
-  items    Int
-  isPaid   Boolean   @default(false)
-  shippingMethod String
-  paidAt   DateTime?
+  status         OrderStatus     @default(PENDING)
+  shippingMethod ShippingMethod?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
