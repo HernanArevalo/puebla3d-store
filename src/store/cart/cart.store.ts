@@ -91,7 +91,7 @@ export const useCartStore = create<State>()(
         const { cart } = get();
 
         const updatedCartProducts = cart.filter((item) => 
-          item.id !== product.id || item.size !== product.size
+          item.id !== product.id || item.size !== product.size || item.color !== product.color
         );
 
         set({ cart: updatedCartProducts });
