@@ -33,21 +33,20 @@ model InStock {
   oldPrice  Float?
   productId String
   colors    Color[] // Cambiar de String[] a Color[] para la relación
-  
+
   //* relations
-  Product   Product @relation(fields: [productId], references: [id])
+  Product Product @relation(fields: [productId], references: [id])
 }
 
 model Color {
-  id       String @id @default(uuid())
-  name     String
-  stock    Int @default(1)
+  id    String @id @default(uuid())
+  name  String
+  stock Int    @default(1)
 
   //* relations
-  inStock  InStock @relation(fields: [inStockId], references: [id])
+  inStock   InStock @relation(fields: [inStockId], references: [id])
   inStockId String
 }
-
 
 model Category {
   id   String @id @default(uuid())
@@ -57,38 +56,38 @@ model Category {
 }
 
 model DiscountCode {
-  id           String    @id @default(uuid())
-  code         String    @unique
-  description  String?
-  discount     Float
-  expiresAt    DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  isActive     Boolean   @default(true)
-  usageLimit   Int?      // Número máximo de usos permitidos (opcional)
-  usageCount   Int       @default(0) // Número de veces que se ha utilizado el código
+  id          String    @id @default(uuid())
+  code        String    @unique
+  description String?
+  discount    Float
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  isActive    Boolean   @default(true)
+  usageLimit  Int? // Número máximo de usos permitidos (opcional)
+  usageCount  Int       @default(0) // Número de veces que se ha utilizado el código
 
   //* relations
-  Order        Order[]
+  Order Order[]
 }
 
 model Product {
-  id              String   @id @default(uuid())
-  title           String
-  description     String
-  slug            String   @unique
-  tags            String[] @default([])
-  enabled         Boolean  @default(true)
-  unique          Boolean
-  useStock        Boolean  @default(false)
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  slug        String   @unique
+  tags        String[] @default([])
+  enabled     Boolean  @default(true)
+  unique      Boolean
+  useStock    Boolean  @default(false)
 
   //* relations
-  categoryName    Category @relation(fields: [category], references: [name])
-  category        String
+  categoryName Category @relation(fields: [category], references: [name])
+  category     String
 
-  ProductImage    ProductImage[]
-  OrderItem       OrderItem[]
-  inStock         InStock[]
+  ProductImage ProductImage[]
+  OrderItem    OrderItem[]
+  inStock      InStock[]
   // sizes           Size[]         @default([])
 
   @@index([category])
@@ -124,6 +123,7 @@ model Country {
   UserAddress  UserAddress[]
   OrderAddress OrderAddress[]
 }
+
 model Province {
   id   String @id
   name String
@@ -144,8 +144,8 @@ model UserAddress {
   city       String
 
   //* relations
-  country   Country @relation(fields: [countryId], references: [id])
-  countryId String
+  country    Country  @relation(fields: [countryId], references: [id])
+  countryId  String
   province   Province @relation(fields: [provinceId], references: [id])
   provinceId String
 
@@ -170,8 +170,15 @@ enum ShippingMethod {
 
 //* purchase order
 model Order {
+  id             String          @id @default(uuid())
+  subTotal       Float
+  tax            Float
+  total          Float
+  items          Int
+  isPaid         Boolean         @default(false)
   status         OrderStatus     @default(PENDING)
   shippingMethod ShippingMethod?
+  paidAt         DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -186,7 +193,7 @@ model Order {
   transactionId String?
 
   discountCodeId String?
-  DiscountCode  DiscountCode? @relation(fields: [discountCodeId], references: [id])
+  DiscountCode   DiscountCode? @relation(fields: [discountCodeId], references: [id])
 }
 
 model OrderItem {
@@ -215,8 +222,8 @@ model OrderAddress {
   phone      String
 
   //* relations
-  country   Country @relation(fields: [countryId], references: [id])
-  countryId String
+  country    Country  @relation(fields: [countryId], references: [id])
+  countryId  String
   province   Province @relation(fields: [provinceId], references: [id])
   provinceId String
 
