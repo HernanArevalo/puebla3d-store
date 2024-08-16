@@ -38,28 +38,29 @@ export const PlaceOrder = () => {
 
   const onCreateOrder = async () => {
     setCreatingOrder(true);
-
+  
     const productsToOrder = cart.map((product) => ({
       productId: product.id,
       quantity: product.quantity,
       size: product.size,
       color: product.color,
       prize: product.price
-
     }));
-
-    // server action
+  
+    //* server action
     const resp = await placeOrder(productsToOrder, address);
-
     if (!resp.ok) {
       setCreatingOrder(false);
       setErrorMessage(resp.message);
       return;
     }
-
-    // * All ok!
-    clearCart();
+  
+    //* All ok!
     router.replace('/orders/' + resp.order?.id);
+  
+    setTimeout(() => {
+      clearCart();
+    }, 1000);
   };
 
   return (
