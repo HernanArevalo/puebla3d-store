@@ -1,3 +1,5 @@
+export type ShippingMethod = 'RETIRO' |'CADETE' |'CORREO';
+
 export interface Address {
   firstName: string;
   lastName: string;
@@ -8,5 +10,5 @@ export interface Address {
   country: string;
   province: string;
   phone: string;
-  shippingMethod: string;
+  shippingMethod: ShippingMethod;
 }
