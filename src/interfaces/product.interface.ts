@@ -23,6 +23,9 @@ export interface ProductImage {
 
 export type ValidSizes = 'small' | 'medium' | 'large' | 'extralarge' | 'unique';
 
+export type ShippingMethod = 'RETIRO' |'CADETE' |'CORREO';
+
+
 export interface Product {
   id: string;
   title: string;
