@@ -1,13 +1,9 @@
 export const revalidate = 0;
 
-// https://tailwindcomponents.com/component/hoverable-table
 import { getPaginatedProductsWithImages } from '@/actions';
 import { Pagination, ProductImage, Title } from '@/components';
 import { currencyFormat } from '@/utils';
-import Image from 'next/image';
-
 import Link from 'next/link';
-import { IoCardOutline } from 'react-icons/io5';
 
 interface Props {
   searchParams: {
@@ -15,11 +11,8 @@ interface Props {
   };
 }
 
-
 export default async function OrdersPage({ searchParams }: Props) {
-
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
-
   const { products, totalPages, currentPage } = await getPaginatedProductsWithImages({ page });
 
   return (
@@ -37,36 +30,32 @@ export default async function OrdersPage({ searchParams }: Props) {
           <thead className="bg-gray-200 border-b">
             <tr>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Image
+                Imagen
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Title
+                Titulo
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Prize
+                Precio
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Gender
+                Categoría
               </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Inventory
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Sizes
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 w-full grid grid-cols-2 gap-5">
+                <span className="text-left">Tamaños</span>
+                <span className="text-left">Colores</span>
               </th>
             </tr>
           </thead>
           <tbody>
-
-            { products.map(product => (
+            {products.map((product) => (
               <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100" key={product.id}>
-
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   <Link href={`/product/${product.slug}`}>
-                    <ProductImage 
-                      src={product.images[0]} 
-                      width={80} 
-                      height={80} 
+                    <ProductImage
+                      src={product.images[0]}
+                      width={80}
+                      height={80}
                       className="w-20 h-20 object-cover rounded"
                       alt={product.title}
                     />
@@ -74,35 +63,40 @@ export default async function OrdersPage({ searchParams }: Props) {
                 </td>
                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                   <Link href={`/admin/product/${product.slug}`} className="hover:underline">
-                    { product.title}
+                    {product.title}
                   </Link>
                 </td>
                 <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                  { currencyFormat(product.price)}
+                  {currencyFormat(product.price)}
                 </td>
-                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  { product.category }
-                </td>
-                <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                  { product.colors.join(',') }
+                <td className="capitalize text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {product.category}
                 </td>
                 <td className="text-sm text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                  { product.sizes.join(',') }
+                  {product.inStock.map((stockItem, index) => (
+                    <>
+                    <div key={stockItem.id} className="mb-1 grid grid-cols-2 gap-5">
+                      <span className="font-medium capitalize">{stockItem.size}</span>
+                      <div className="">
+                        {stockItem.colors.map((colorItem) => (
+                          <div key={colorItem.id}>
+                            <span className="capitalize">{colorItem.name}:</span> <span>{colorItem.stock}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    {index < product.inStock.length - 1 && (
+                      <span className="block my-2 border-t border-gray-300 w-full" />
+                    )}
+                    </>
+                  ))}
                 </td>
-                
-
               </tr>
-
-            ))
-
-            }
-
-
-
+            ))}
           </tbody>
         </table>
 
-        <Pagination totalPages={ totalPages }/>
+        <Pagination totalPages={totalPages} />
       </div>
     </>
   );
