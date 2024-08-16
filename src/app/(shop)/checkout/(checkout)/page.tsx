@@ -1,9 +1,20 @@
+"use client"
 import { Title } from "@/components";
 import Link from "next/link";
 import { PlaceOrder, ProductsInCart } from "./ui";
+import { useCartStore } from "@/store";
+import { redirect } from "next/navigation";
 
 
 export default function CheckoutPage() {
+
+  const {cart} = useCartStore()
+
+  if (cart.length == 0) {
+    redirect('/cart');
+  }
+
+
   return (
     <div className="flex justify-center items-start mb-24 px-10 sm:px-10">
       
