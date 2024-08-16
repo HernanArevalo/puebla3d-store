@@ -31,11 +31,11 @@ export const getPaginatedProductsWithImages = async ({
             url: true,
           },
         },
-        // inStock: {
-        //   include: {
-        //     colors: true
-        //   }
-        // },
+        inStock: {
+          include: {
+            colors: true
+          }
+        },
         // category: { }
       },  
     });
