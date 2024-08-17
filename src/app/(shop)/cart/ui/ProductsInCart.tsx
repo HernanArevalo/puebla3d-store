@@ -7,11 +7,18 @@ import { useCartStore } from '@/store';
 
 export const ProductsInCart = () => {
 
-  const updateProductQuantity = useCartStore( (state) => state.updateProductQuantity );
-  const removeProductToCart = useCartStore( (state) => state.removeProductToCart );
-  
-  const productsInCart = useCartStore((state) => state.cart);
+  const { cart:productsInCart, 
+          updateProductQuantity, 
+          removeProductToCart, 
+          updateProducts 
+        } = useCartStore();
+
   const [loaded, setLoaded] = useState(false);
+
+  
+  useEffect(() => {
+    updateProducts();
+  }, [updateProducts]);
 
   useEffect(() => {
     setLoaded(true);
@@ -20,7 +27,6 @@ export const ProductsInCart = () => {
   if (!loaded) {
     return <p>Cargando...</p>;
   }
-
 
 
 
