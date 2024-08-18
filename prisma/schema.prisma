@@ -168,17 +168,27 @@ enum ShippingMethod {
   CORREO
 }
 
+enum PaymentMethod {
+  MERCADOPAGO
+  TRANSFERENCIA
+}
+
 //* purchase order
 model Order {
-  id             String          @id @default(uuid())
-  subTotal       Float
-  tax            Float
-  total          Float
-  items          Int
-  isPaid         Boolean         @default(false)
-  status         OrderStatus     @default(PENDING)
-  shippingMethod ShippingMethod?
-  paidAt         DateTime?
+  id               String          @id @default(uuid())
+  subTotal         Float
+  tax              Float
+  total            Float
+  items            Int
+  isPaid           Boolean         @default(false)
+  status           OrderStatus     @default(PENDING)
+
+  shippingMethod   ShippingMethod?
+
+  paidAt           DateTime?
+  paymentMethod    PaymentMethod
+  transactionImage String?
+  transactionId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -189,8 +199,6 @@ model Order {
 
   OrderItems   OrderItem[]
   OrderAddress OrderAddress?
-
-  transactionId String?
 
   discountCodeId String?
   DiscountCode   DiscountCode? @relation(fields: [discountCodeId], references: [id])
