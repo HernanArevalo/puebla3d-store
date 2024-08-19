@@ -10,7 +10,7 @@ export interface ProductColor {
 
 export interface ProductInStock {
   id: string;
-  size: ValidSizes;
+  size: string;
   price: number;
   oldPrice?: number | null;
   productId: string;
@@ -42,7 +42,7 @@ export interface Product {
 export interface CartProduct {
   id: string;
   price: number;
-  size: ValidSizes;
+  size: string;
   color: string,
   slug: string;
   title: string;
