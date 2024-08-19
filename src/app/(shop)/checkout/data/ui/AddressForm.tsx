@@ -4,9 +4,9 @@ import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { deleteUserAddress, setUserAddress } from '@/actions';
-import { Address, Country, Province } from '@/interfaces';
-import { useAddressStore } from '@/store';
-import { useRouter } from 'next/navigation';
+import { Address, Country, Province, ShippingMethod } from '@/interfaces';
+import { useAddressStore, useCartStore } from '@/store';
+import { redirect, useRouter } from 'next/navigation';
 import { SubTitle } from '@/components';
 
 interface FormInputs {
@@ -20,7 +20,7 @@ interface FormInputs {
   country: string,
   phone: string,
   rememberAddress: boolean,
-  shippingMethod: string,
+  shippingMethod: ShippingMethod,
 }
 
 interface Props {
@@ -30,22 +30,23 @@ interface Props {
 }
 
 export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Props) => {
-
   const router = useRouter();
   const { handleSubmit, register, formState: { isValid }, reset, setValue, watch, getValues } = useForm<FormInputs>({
     defaultValues: {
       ...(userStoredAddress as any),
       country: "AR",
       rememberAddress: false,
-      shippingMethod: 'cadete',
+      shippingMethod: 'CADETE',
     },
   });
 
-  const { data: sessionData } = useSession({
-    required: true,
-  });
-
+  const { data: sessionData } = useSession({ required: true });
   const { address, setAddress } = useAddressStore();
+  const {cart} = useCartStore()
+
+  if (cart.length == 0) {
+    redirect('/cart');
+  }
 
   useEffect(() => {
     if (address.firstName) {
@@ -71,9 +72,6 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
   // Watch the shippingMethod field to handle checkbox state
   const selectedShippingMethod = watch('shippingMethod');
 
-  const handleCheckboxChange = (value: string) => {
-    setValue('shippingMethod', value === selectedShippingMethod ? '' : value);
-  };
 
   return (
     <>
@@ -167,10 +165,10 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
           <div className="flex flex-row gap-4 mb-10">
             <label className={clsx(
                                   "rounded-xl p-5 w-full flex items-center gap-5 cursor-pointer transition-all",
-                                  {'bg-white': !getValues(['shippingMethod']).includes('cadete')},
-                                  {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('cadete')},
+                                  {'bg-white': !getValues(['shippingMethod']).includes('CADETE')},
+                                  {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('CADETE')},
                                   )}
-                    onClick={()=> {setValue('shippingMethod','cadete')}}>
+                    onClick={()=> {setValue('shippingMethod','CADETE')}}>
               <div className="flex flex-col">
                 <span className="font-semibold text-lg">Córdoba Capital</span>
                 Envío con cadete
@@ -179,10 +177,10 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
 
             <label className={clsx(
                                     "rounded-xl p-5 w-full flex items-center gap-5 cursor-pointer transition-all",
-                                    {'bg-white': !getValues(['shippingMethod']).includes('retiro')},
-                                    {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('retiro')},
+                                    {'bg-white': !getValues(['shippingMethod']).includes('RETIRO')},
+                                    {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('RETIRO')},
                                   )}
-                    onClick={()=> {setValue('shippingMethod','retiro')}}>
+                    onClick={()=> {setValue('shippingMethod','RETIRO')}}>
               <div className="flex flex-col">
                 <span className="font-semibold text-lg">Córdoba Capital</span>
                 Retiro en persona
@@ -192,10 +190,10 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
             <label className={clsx(
                                   "rounded-xl p-5 w-full flex items-center gap-5 cursor-pointer transition-all",
                                     "rounded-xl p-5 w-full flex items-center gap-5 cursor-pointer",
-                                    {'bg-white': !getValues(['shippingMethod']).includes('correo')},
-                                    {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('correo')},
+                                    {'bg-white': !getValues(['shippingMethod']).includes('CORREO')},
+                                    {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('CORREO')},
                                   )}
-                    onClick={()=> {setValue('shippingMethod','correo')}}>
+                    onClick={()=> {setValue('shippingMethod','CORREO')}}>
               <div className="flex flex-col">
                 <span className="font-semibold text-lg">Resto del país</span>
                 Envío por Correo Argentino
