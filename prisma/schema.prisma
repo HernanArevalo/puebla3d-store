@@ -184,9 +184,10 @@ model Order {
   status           OrderStatus     @default(PENDING)
 
   shippingMethod   ShippingMethod?
+  shippingAmount   Float?
 
   paidAt           DateTime?
-  paymentMethod    PaymentMethod
+  paymentMethod    PaymentMethod?
   transactionImage String?
   transactionId String?
 
