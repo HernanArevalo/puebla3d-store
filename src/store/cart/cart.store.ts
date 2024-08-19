@@ -1,3 +1,4 @@
+import { getCartProducts } from '@/actions';
 import { CartProduct } from '@/interfaces';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -14,9 +15,11 @@ interface State {
   };
 
   addProductToCart: (product: CartProduct) => void;
-  updateProductQuantity: (product: CartProduct, quantity: number) => void;
-  removeProductToCart: (product: CartProduct) => void;
 
+  updateProducts: () => void;
+  updateProductQuantity: (product: CartProduct, quantity: number) => void;
+
+  removeProductToCart: (product: CartProduct) => void;
   clearCart: () => void;
 }
 
@@ -72,6 +75,16 @@ export const useCartStore = create<State>()(
         });
 
         set({ cart: updatedCartProducts });
+      },
+
+      updateProducts: async() => {
+        const { cart } = get();
+
+        const updatedProducts = await getCartProducts({cart});
+
+        const productsInStock = updatedProducts.filter(product => product.stock > 0)
+
+        set({ cart: productsInStock })
       },
 
       updateProductQuantity: (product: CartProduct, quantity: number) => {
