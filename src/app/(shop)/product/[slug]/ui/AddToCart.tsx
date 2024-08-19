@@ -15,7 +15,7 @@ export const AddToCart = ({ product }: Props) => {
   const addProductToCart = useCartStore(state => state.addProductToCart)
 
   const [selectedSize, setSelectedSize] = useState<ProductInStock>(product.inStock[0])
-  const [selectedColor, setSelectedColor] = useState<ProductColor>()
+  const [selectedColor, setSelectedColor] = useState<ProductColor | undefined>()
 
   useEffect(() => {
     setQuantity(1)
@@ -43,9 +43,11 @@ export const AddToCart = ({ product }: Props) => {
       slug: product.slug,
       title: product.title,
     }
+    
     addProductToCart(cartProduct)
 
     setSelectedSize(product.inStock[0])
+    setSelectedColor(undefined)
     setQuantity(1);
     setPosted(false);
   };
