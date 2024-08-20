@@ -102,7 +102,11 @@ export default async function OrderPage({ params }: Props) {
               {order?.isPaid ? (
                 <OrderStatus isPaid={order?.isPaid ?? false} />
               ) : (
-                <PayPalButton orderId={order!.id} amount={order!.total} />
+                <div className="w-full flex flex-row justify-center gap-14">
+                  <button className="bg-puebla-dark text-white rounded-md p-3 text-lg border-black border2">Mercado Pago</button>
+                  <button className="bg-puebla-dark text-white rounded-md p-3 text-lg border-black border2">Transferencia</button>
+                  
+                </div>
               )}
             </div>
           </div>
