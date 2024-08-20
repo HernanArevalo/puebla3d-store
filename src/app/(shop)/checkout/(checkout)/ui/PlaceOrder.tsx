@@ -23,6 +23,8 @@ export const PlaceOrder = () => {
   const { items, subtotal, tax, total } = useCartStore((state) =>
     state.getSummaryInformation()
   );
+  const deliveryAmount = address.shippingMethod == 'CADETE'? 3000:0
+
 
   useEffect(() => {
     setLoaded(true);
@@ -60,7 +62,7 @@ export const PlaceOrder = () => {
   
     setTimeout(() => {
       clearCart();
-    }, 1000);
+    }, 2000);
   };
 
   return (
@@ -96,15 +98,24 @@ export const PlaceOrder = () => {
         <h2 className="text-2xl mb-2 font-semibold">Resumen de la orden</h2>
 
         <div className="grid grid-cols-2">
-          <span className="font-semibold">Productos</span>
+          <span></span>
           <span className='text-right'>{items !== 1 ? `${items} artículos` : `1 artículo`}</span>
+          <span className="font-semibold">Productos:</span>
+          <span className='text-right'>{currencyFormat(subtotal)}</span>
 
-          <span className='text-3xl font-semibold'>Total:</span>
-          <span className='text-3xl text-right'>{currencyFormat(subtotal)}</span>
+          <span className="font-semibold">Envío ({address.shippingMethod.toUpperCase()}):</span>
+          <span className='text-right'>{ currencyFormat(deliveryAmount)}</span>
+          { address.shippingMethod == 'CORREO' &&
+            <div className="bg-puebla-blue rounded-md p-3 text-justify bg-opacity-40 col-start-1 col-end-3 my-3">
+              El importe del envío se abona por separado una vez confirmada la compra.
+            </div>
+          }
+          <span className='text-3xl font-semibold mt-5'>Total:</span>
+          <span className='text-3xl text-right  mt-5'>{currencyFormat(subtotal + deliveryAmount)}</span>
 
 
-          <span className='mt-10 text-xl font-semibold'>Con transferencia:</span>
-          <span className='mt-10 text-xl text-right'>{currencyFormat(total)}</span>
+          <span className='mt-7 text-xl font-semibold'>Con transferencia:</span>
+          <span className='mt-7 text-xl text-right'>{currencyFormat(total + deliveryAmount)}</span>
 
           <span className="font-semibold">Descuento (10%):</span>
           <span className='text-right'>{currencyFormat(tax)}</span>
