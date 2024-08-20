@@ -169,9 +169,14 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
                                   {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('CADETE')},
                                   )}
                     onClick={()=> {setValue('shippingMethod','CADETE')}}>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-full">
                 <span className="font-semibold text-lg">Córdoba Capital</span>
-                Envío con cadete
+                <span>Envío con cadete.</span>
+                <span>Dentro de Circunvalación.</span>
+                <div className="border-b-2 border-puebla-blue w-full my-2">
+                  
+                </div>
+                <span className="font-semibold">$ 3.000</span>
               </div>
             </label>
 
@@ -181,9 +186,14 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
                                     {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('RETIRO')},
                                   )}
                     onClick={()=> {setValue('shippingMethod','RETIRO')}}>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-full">
                 <span className="font-semibold text-lg">Córdoba Capital</span>
-                Retiro en persona
+                <span>Retiro en persona.</span>
+                <span>Colón 4000 - aproximadamente.</span>
+                <div className="border-b-2 border-puebla-blue w-full my-2">
+                  
+                </div>
+                <span className="font-semibold">$ 0</span>
               </div>
             </label>
 
@@ -194,9 +204,14 @@ export const AddressForm = ({ countries, provinces, userStoredAddress = {} }: Pr
                                     {'bg-blue-600 text-white': getValues(['shippingMethod']).includes('CORREO')},
                                   )}
                     onClick={()=> {setValue('shippingMethod','CORREO')}}>
-              <div className="flex flex-col">
+              <div className="flex flex-col w-full">
                 <span className="font-semibold text-lg">Resto del país</span>
-                Envío por Correo Argentino
+                <span>Envío por Correo Argentino</span>
+                <div className="border-b-2 border-puebla-blue w-full my-2">
+                  
+                </div>
+                <span className="font-semibold">$ A confirmar</span>
+
               </div>
             </label>
           </div>
