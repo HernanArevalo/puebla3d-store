@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import Image from 'next/image';
 
 import { getOrderById } from '@/actions';
 import { OrderStatus, PayPalButton, ProductImage, SubtitleNM, TitleNM } from '@/components';
@@ -16,7 +15,7 @@ export default async function OrderPage({ params }: Props) {
 
   const { ok, order } = await getOrderById(id);
 
-  if (!ok) {
+  if (!ok || !order) {
     redirect('/');
   }
 
@@ -48,7 +47,7 @@ export default async function OrderPage({ params }: Props) {
                   className='rounded'
                 />
                 <div>
-                  <p>
+                  <p className="capitalize">
                     {item.product.title} - {item.size}
                   </p>
                   <p>
@@ -67,7 +66,7 @@ export default async function OrderPage({ params }: Props) {
           {/* Checkout */}
           <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
             <h2 className="text-2xl mb-2 font-semibold">Datos:</h2>
-            <div className="mb-10">
+            <div className="mb-5">
               <p className="text-xl">{address?.firstName} {address?.lastName}</p>
               <p>{address?.phone}</p>
               <p>{address?.address}</p>
@@ -77,6 +76,13 @@ export default async function OrderPage({ params }: Props) {
                 <span className="capitalize font-semibold">{order?.shippingMethod}</span>
               </p>
             </div>
+            { (order.shippingMethod === 'CORREO') &&
+            <div className={ 'flex items-center gap-4 rounded-lg py-2 px-3.5 text-sm font-semibold bg-puebla-blue mb-10' }>
+                Una vez listo el producto, nos vamos a comunicar con vos para coordinar el envío.
+            </div>
+            }
+
+
 
             {/* Divider */}
             <div className="w-full h-0.5 rounded bg-gray-300 mb-10" />
@@ -84,12 +90,14 @@ export default async function OrderPage({ params }: Props) {
             <h2 className="text-2xl mb-2 font-semibold">Resumen de la compra:</h2>
 
             <div className="grid grid-cols-2">
-              <span className="font-semibold">Productos</span>
+              <span></span>
               <span className='text-right'>{order!.items !== 1 ? `${order!.items} artículos` : `1 artículo`}</span>
 
-              <span className='text-3xl font-semibold'>Total:</span>
-              <span className='text-3xl text-right'>{currencyFormat(order!.subTotal)}</span>
+              <span className="font-semibold">Productos:</span>
+              <span className='text-right'>{currencyFormat(order.subTotal)}</span>
 
+              <span className="font-semibold">Envío ({order!.shippingMethod}):</span>
+              <span className='text-right'>{  currencyFormat(order.shippingAmount)}</span>
 
               <span className='mt-8 text-xl font-semibold'>Con transferencia:</span>
               <span className='mt-8 text-xl text-right'>{currencyFormat(order!.total)}</span>
