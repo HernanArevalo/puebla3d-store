@@ -4,7 +4,9 @@ import { ColorSelector, QuantitySelector, SizeSelector } from '@/components';
 import { titleFont } from '@/config/fonts';
 import { CartProduct, Product, ProductColor, ProductInStock } from '@/interfaces';
 import { useCartStore } from '@/store';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 interface Props {
   product: Product;
@@ -50,6 +52,28 @@ export const AddToCart = ({ product }: Props) => {
     setSelectedColor(undefined)
     setQuantity(1);
     setPosted(false);
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      background: "#92C7D7",
+      color: "black",
+      iconColor: "white",
+      width: "auto",
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: undefined,
+      title: 'Producto agregado!'
+    })
+
   };
 
   const onChangeSize = (size: string) => {
