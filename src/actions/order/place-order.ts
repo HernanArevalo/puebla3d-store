@@ -182,6 +182,7 @@ export const placeOrder = async (
           tax: tax,
           total: total,
           shippingMethod: address.shippingMethod as typeof shippingMethod,
+          shippingAmount: address.shippingMethod == 'CADETE'? 3000:0,
           OrderItems: {
             createMany: {
               data: productsIds.map((p) => {
