@@ -89,7 +89,9 @@ export const AddToCart = ({ product }: Props) => {
       <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} maxQuantity={selectedColor?.stock || quantity}  />
 
       {/* Button */}
-      <button className='btn-dark my-5' onClick={AddToCart}>
+      <button className='btn-dark my-5' 
+              disabled={selectedSize == undefined || selectedColor == undefined} 
+              onClick={AddToCart}>
         Agregar al carro
       </button>
     </>
