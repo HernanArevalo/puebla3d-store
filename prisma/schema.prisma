@@ -184,7 +184,7 @@ model Order {
   status           OrderStatus     @default(PENDING)
 
   shippingMethod   ShippingMethod?
-  shippingAmount   Float?
+  shippingAmount   Int           @default(0)
 
   paidAt           DateTime?
   paymentMethod    PaymentMethod?
