@@ -64,34 +64,7 @@ export default async function OrderPage({ params }: Props) {
           </div>
 
           {/* Checkout */}
-          <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
-            <h2 className="text-2xl mb-2 font-semibold">Datos:</h2>
-            <div className="mb-5">
-              <p className="text-xl">{address?.firstName} {address?.lastName}</p>
-              <p>{address?.phone}</p>
-              <p>{address?.address}</p>
-              <p>{address?.address2}</p>
-              <p>{address?.city} ({address?.postalCode}) - Argentina</p>
-              <p className="flex flex-row items-center gap-2">Método de entrega:
-                <span className="capitalize font-semibold">{order?.shippingMethod}</span>
-              </p>
-            </div>
-            { (order.shippingMethod === 'CORREO') &&
-            <div className={ 'flex items-center gap-4 rounded-lg py-2 px-3.5 text-sm font-semibold bg-puebla-blue mb-10' }>
-                Una vez listo el producto, nos vamos a comunicar con vos para coordinar el envío.
-            </div>
-            }
-
-
-
-            {/* Divider */}
-            <div className="w-full h-0.5 rounded bg-gray-300 mb-10" />
-
-            <h2 className="text-2xl mb-2 font-semibold">Resumen de la compra:</h2>
-
-            <div className="grid grid-cols-2">
-              <span></span>
-              <span className='text-right'>{order!.items !== 1 ? `${order!.items} artículos` : `1 artículo`}</span>
+          <OrderSummary order={order}/>
 
               <span className="font-semibold">Productos:</span>
               <span className='text-right'>{currencyFormat(order.subTotal)}</span>
