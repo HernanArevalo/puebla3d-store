@@ -25,6 +25,7 @@ export * from './product/stock-label/StockLabel'
 export * from './providers/Providers'
 
 
+export * from './ui/divider/Divider'
 export * from './ui/footer/Footer'
 export * from './ui/not-found/NotFound';
 export * from './ui/pagination/Pagination'
