@@ -1,8 +1,9 @@
 import { redirect } from 'next/navigation';
 
 import { getOrderById } from '@/actions';
-import { OrderStatus, PayPalButton, ProductImage, SubtitleNM, TitleNM } from '@/components';
+import { OrderStatus, ProductImage, SubtitleNM, TitleNM } from '@/components';
 import { currencyFormat } from '@/utils';
+import { OrderSummary } from './components';
 
 interface Props {
   params: {
@@ -19,18 +20,18 @@ export default async function OrderPage({ params }: Props) {
     redirect('/');
   }
 
-  const address = order?.OrderAddress;
+  const address = order.OrderAddress;
 
   return (
     <div className="flex justify-center items-start mb-24 px-10 sm:px-10">
-      <div className="flex flex-col w-[1000px]">
-        <TitleNM title={`Pedido confirmado`} />
-        <SubtitleNM title={`#${id.split('-').at(-1)}`} className='font-thin mb-5' />
+      <div className="flex flex-col w-[1000px] pt-8">
 
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Cart */}
           <div className="flex flex-col">
+            <TitleNM title={`Pedido confirmado`} />
+            <SubtitleNM title={`#${id.split('-').at(-1)}`} className='font-thin mb-5' />
             <OrderStatus isPaid={order?.isPaid ?? false} />
 
             {order?.OrderItems.map((item) => (
@@ -66,31 +67,6 @@ export default async function OrderPage({ params }: Props) {
           {/* Checkout */}
           <OrderSummary order={order}/>
 
-              <span className="font-semibold">Productos:</span>
-              <span className='text-right'>{currencyFormat(order.subTotal)}</span>
-
-              <span className="font-semibold">Envío ({order!.shippingMethod}):</span>
-              <span className='text-right'>{  currencyFormat(order.shippingAmount)}</span>
-
-              <span className='mt-8 text-xl font-semibold'>Con transferencia:</span>
-              <span className='mt-8 text-xl text-right'>{currencyFormat(order!.total)}</span>
-
-              <span className="font-semibold">Descuento (10%):</span>
-              <span className='text-right'>{currencyFormat(order!.tax)}</span>
-            </div>
-
-            <div className="mt-5 mb-2 w-full">
-              {order?.isPaid ? (
-                <OrderStatus isPaid={order?.isPaid ?? false} />
-              ) : (
-                <div className="w-full flex flex-row justify-center gap-14">
-                  <button className="bg-puebla-dark text-white rounded-md p-3 text-lg border-black border2">Mercado Pago</button>
-                  <button className="bg-puebla-dark text-white rounded-md p-3 text-lg border-black border2">Transferencia</button>
-                  
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </div>
