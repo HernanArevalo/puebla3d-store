@@ -36,19 +36,19 @@ export default async function OrderPage({ params }: Props) {
             {order?.OrderItems.map((item) => (
               <div
                 className="flex gap-5 mb-2"
-                key={item.product.slug + '-' + item.size}
+                key={item.slug + '-' + item.size}
               >
                 <ProductImage
-                  src={item.product.ProductImage[0].url}
+                  src={item.image}
                   width={100}
                   height={100}
                   style={{ width: '100px', height: '100px' }}
-                  alt={item.product.title}
+                  alt={item.title}
                   className='rounded'
                 />
                 <div>
                   <p className="capitalize">
-                    {item.product.title} - {item.size}
+                    {item.title} - {item.size}
                   </p>
                   <p>
                     {currencyFormat(item.price)} x {item.quantity}
