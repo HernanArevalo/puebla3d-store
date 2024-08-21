@@ -23,12 +23,11 @@ export const getOrderById = async(id:string) => {
             price: true,
             quantity: true,
             size: true,
-
+            color: true,
             product: {
               select: {
                 title: true,
                 slug: true,
-
                 ProductImage: {
                   select: {
                     url: true
@@ -52,7 +51,18 @@ export const getOrderById = async(id:string) => {
 
     return {
       ok: true,
-      order: order
+      order: 
+            { ...order,
+              OrderItems: order.OrderItems.map(item=> ({
+                title:    item.product.title,
+                slug:    item.product.slug,
+                quantity: item.quantity,
+                price:    item.price,
+                size:     item.size,
+                color:    item.color,
+                image:    item.product.ProductImage[0].url
+              }))
+            }
     }
   } catch (error) {
     console.log(error);
