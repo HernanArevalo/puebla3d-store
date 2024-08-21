@@ -26,9 +26,9 @@ export const Title = ({ title, subtitle, className }: Props) => {
 export const TitleNM = ({ title, subtitle, className }: Props) => {
   return (
     <div
-      className={`mt-3 ${className}`}
+      className={`${className}`}
     >
-      <h1 className={`${titleFont.className} antialiased text-4xl font-semibold mt-7`}>
+      <h1 className={`${titleFont.className} antialiased text-4xl font-semibold`}>
         {title}
       </h1>
 
