@@ -3,6 +3,7 @@
 import { auth } from '@/auth.config';
 import type { Address, ShippingMethod } from '@/interfaces';
 import prisma from '@/lib/prisma';
+import { deliveryValue } from '@/utils';
 
 interface ProductToOrder {
   productId: string;
@@ -49,7 +50,7 @@ export const placeOrder = async (
   const itemsInOrder = productsIds.reduce((count, p) => count + p.quantity, 0);
 
   // totals: tax, subtotal, and total
-  const { subtotal, tax, total } = productsIds.reduce(
+  const { total } = productsIds.reduce(
     (totals, item) => {
       const productQuantity = item.quantity;
       const product = products.find((p) => p.id === item.productId);
@@ -75,13 +76,11 @@ export const placeOrder = async (
       // Calcula el subtotal basado en el precio y la cantidad
       const subtotal = inStock.price * productQuantity;
 
-      totals.subtotal += subtotal;
-      totals.tax += subtotal * 0.1;
-      totals.total += subtotal * 0.9;
+      totals.total += subtotal;
 
       return totals;
     },
-    { subtotal: 0, tax: 0, total: 0 }
+    { total: 0 }
   );
 
   // create transaction
@@ -178,11 +177,9 @@ export const placeOrder = async (
         data: {
           userId: userId,
           items: itemsInOrder,
-          subTotal: subtotal,
-          tax: tax,
           total: total,
           shippingMethod: address.shippingMethod as typeof shippingMethod,
-          shippingAmount: address.shippingMethod == 'CADETE'? 3000:0,
+          shippingAmount: address.shippingMethod == 'CADETE'? deliveryValue:0,
           OrderItems: {
             createMany: {
               data: productsIds.map((p) => {
