@@ -144,3 +144,32 @@ const uploadImages = async( images: File[]) => {
     return null
   }
 }
+
+const loadVoucherImage = async( images: File[]) => {
+
+  try {
+    const uploadPromises = images.map( async(image) => {
+
+      try {
+        const buffer = await image.arrayBuffer();
+        const base64image = Buffer.from(buffer).toString('base64');
+  
+        return cloudinary.uploader.upload(`data:image/png;base64,${ base64image }`, {folder: "vouchers"})
+          .then( r => r.secure_url)
+  
+          
+        } catch (error) {
+          console.log(error);
+          return null
+        }
+    })
+
+    const uploadedImages = await Promise.all( uploadPromises )
+    return uploadedImages
+        
+
+  } catch (error) {
+    console.log(error);
+    return null
+  }
+}
