@@ -78,7 +78,7 @@ model Product {
   slug        String   @unique
   tags        String[] @default([])
   enabled     Boolean  @default(true)
-  unique      Boolean
+  unique     Boolean  @default(false)
   useStock    Boolean  @default(false)
 
   //* relations
