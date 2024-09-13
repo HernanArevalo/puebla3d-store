@@ -19,6 +19,7 @@ export * from './order/place-order'
 
 export * from './payments/set-transaction-id'
 export * from './payments/paypal-check-payment'
+export * from './payments/upload-transfer-image'
 
 export * from './product/create-update-product'
 export * from './product/delete-product-image'
