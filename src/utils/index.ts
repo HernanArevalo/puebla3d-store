@@ -1,4 +1,5 @@
 
+export * from './checkCorrectInStockForm'
 export * from './currencyFormat'
 export * from './dateFormat'
 export * from './generatePaginationNumbers'
