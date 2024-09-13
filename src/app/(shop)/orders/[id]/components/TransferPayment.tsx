@@ -7,16 +7,19 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useDropzone } from 'react-dropzone';
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { useState } from "react";
+import { uploadTransferImage } from "@/actions";
+import { Order } from "@/interfaces";
 
 interface Params {
   productsPrice: number;
   shippingPrice: number;
+  order: Order
 
   paymentMethodSelected: string | undefined;
   setPaymentMethodSelected: (method: string | undefined) => void
 }
 
-export const OrderPayment = ({ productsPrice, shippingPrice, paymentMethodSelected, setPaymentMethodSelected }: Params) => {
+export const TransferPayment = ({ productsPrice, shippingPrice, paymentMethodSelected, order, setPaymentMethodSelected }: Params) => {
   const [acceptedFiles, setAcceptedFiles] = useState<File[]>([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -40,6 +43,29 @@ export const OrderPayment = ({ productsPrice, shippingPrice, paymentMethodSelect
       console.error('Error al copiar el texto: ', err);
     });
   };
+
+  const onSaveTransferImage = () => {
+    if (acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+  
+      // Convertir el archivo a base64
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        const base64 = reader.result as string;
+        // Llamar a la Server Action pasando la imagen en base64
+        const {ok} = await uploadTransferImage(order.id, base64);
+
+        if (ok) {
+          setPaymentMethodSelected(undefined)
+        }
+      };
+      reader.onerror = (error) => {
+        console.error('Error al convertir el archivo a base64: ', error);
+      };
+    }
+
+  }
 
   return (
     <>
@@ -99,7 +125,7 @@ export const OrderPayment = ({ productsPrice, shippingPrice, paymentMethodSelect
                       {acceptedFiles[0].name}
                     </span>
                     <div className="flex flex-row gap-2 items-center justify-center">
-                      <button className="btn-dark" onClick={() => {}}>Guardar comprobante</button>
+                      <button className="btn-dark mt-5" onClick={onSaveTransferImage}>Enviar comprobante</button>
                     </div>
                   </aside>
                   }
@@ -110,7 +136,7 @@ export const OrderPayment = ({ productsPrice, shippingPrice, paymentMethodSelect
           </div>
           :
           <div>
-            <h2 className="text-xl mb-2 font-semibold">Pago con MercadoPago:</h2>
+            <h2 className="text-xl my-2 font-semibold">Pago con MercadoPago:</h2>
           </div>
         }
       </div>

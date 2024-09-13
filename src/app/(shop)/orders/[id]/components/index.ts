@@ -1,2 +1,2 @@
-export * from './OrderPayment'
+export * from './TransferPayment'
 export * from './OrderSummary'
