@@ -11,7 +11,7 @@ interface Props {
 export const ColorSelector = ({ selectedColor: selectedColor, availableColors: availableColors, onColorChanged }: Props) => {
   return (
     <>
-      <h3 className='font-bold mb-2 mt-5'>Colores</h3>
+      <h3 className='font-bold text-lg underline mb-2 mt-5'>Colores:</h3>
 
       <div className='flex gap-2'>
         {availableColors.map((color) => (

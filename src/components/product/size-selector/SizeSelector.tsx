@@ -10,7 +10,7 @@ interface Props {
 export const SizeSelector = ({ selectedSize, availableSizes, onSizeChanged }: Props) => {
   return (
     <div className=''>
-      <h3 className='font-bold mb-2'>Tamaño</h3>
+      <h3 className='font-bold text-lg underline mb-2'>Tamaño:</h3>
 
       <div className='flex gap-2'>
         {availableSizes.map((size) => (
