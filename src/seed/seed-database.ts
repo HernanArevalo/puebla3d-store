@@ -80,6 +80,7 @@ async function main() {
                 }
             });
 
+            //* colors
             for (const color of colors){
                 const dbColor = await prisma.color.createMany({
                     data: {
@@ -90,8 +91,6 @@ async function main() {
             }
 
         }
-        //* Colors
-        
 
     }
 
