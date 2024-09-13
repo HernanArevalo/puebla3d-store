@@ -12,11 +12,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 
 import './slideshow.css';
-import Image from 'next/image';
 import { ProductImage } from '../product-image/ProductImage';
+import { ProductImage as ProductImageInt } from '@/interfaces';
 
 interface Props {
-  images: string[];
+  images: ProductImageInt[];
   title: string;
   className?: string;
 }
@@ -47,9 +47,9 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
       >
         {images.length > 0 ? (
           images.map((image) => (
-            <SwiperSlide key={image}>
+            <SwiperSlide key={image.id}>
               <ProductImage
-                src={image}
+                src={image.url}
                 alt={title}
                 width={1024}
                 height={800}
@@ -80,9 +80,9 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
       >
         {images.length > 0 ? (
           images.map((image) => (
-            <SwiperSlide key={image}>
+            <SwiperSlide key={image.id}>
               <ProductImage
-                src={image}
+                src={image.url}
                 alt={title}
                 width={300}
                 height={300}
