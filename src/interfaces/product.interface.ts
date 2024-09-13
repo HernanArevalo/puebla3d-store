@@ -1,15 +1,15 @@
 // product.interface.ts
 
 export interface ProductColor {
-  id: string;
+  id?: string;
   name: string;
   stock: number;
-  inStockId: string;
+  inStockId?: string;
 }
 
 
 export interface ProductInStock {
-  id: string;
+  id?: string;
   size: string;
   price: number;
   oldPrice?: number | null;
@@ -19,6 +19,8 @@ export interface ProductInStock {
 
 export interface ProductImage {
   url: string;
+  productId: string;
+  id: number;
 }
 
 export type ValidSizes = 'small' | 'medium' | 'large' | 'extralarge' | 'unique';
@@ -32,8 +34,9 @@ export interface Product {
   enabled: boolean;
   useStock: boolean;
   category: string;
-  images: any;
+  images: ProductImage[];
   inStock: ProductInStock[]
+  price?: number;
 }
 
 export interface CartProduct {
