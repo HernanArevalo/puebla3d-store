@@ -4,7 +4,6 @@ import { ColorSelector, QuantitySelector, SizeSelector } from '@/components';
 import { titleFont } from '@/config/fonts';
 import { CartProduct, Product, ProductColor, ProductInStock } from '@/interfaces';
 import { useCartStore } from '@/store';
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
@@ -36,7 +35,7 @@ export const AddToCart = ({ product }: Props) => {
 
     const cartProduct: CartProduct = {
       id: product.id,
-      image: product.images[0],
+      image: product.images[0].url,
       price: selectedSize.price,
       quantity: quantity,
       stock: selectedColor.stock,
