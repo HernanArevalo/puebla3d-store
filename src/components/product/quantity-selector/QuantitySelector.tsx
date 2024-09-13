@@ -19,7 +19,7 @@ export const QuantitySelector = ({ quantity, onQuantityChanged, maxQuantity }: P
 
   return (
     <div className='mt-5 mb-2'>
-      <h3 className='font-bold mb-4'>Cantidad</h3>
+      <h3 className='font-bold text-lg underline mb-4'>Cantidad:</h3>
       <div className='flex gap-3'>
         <button onClick={() => onValueChange(-1)}>
           <IoRemoveCircleOutline size={30} />
