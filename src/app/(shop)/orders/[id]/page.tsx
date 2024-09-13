@@ -32,8 +32,7 @@ export default async function OrderPage({ params }: Props) {
           <div className="flex flex-col">
             <TitleNM title={`Pedido confirmado`} />
             <SubtitleNM title={`#${id.split('-').at(-1)}`} className='font-thin mb-5' />
-            <OrderStatus isPaid={order?.isPaid ?? false} />
-
+            <OrderStatus status={order.status} className="mb-5"/>
             {order?.OrderItems.map((item) => (
               <div
                 className="flex gap-5 mb-2"
