@@ -1,4 +1,6 @@
 
+export * from './alert/SweetAlert'
+
 export * from './auth/SignInButton'
 
 export * from './discount-codes/CodeRow'
