@@ -28,8 +28,6 @@ export const ProductsInCart = () => {
     return <p>Cargando...</p>;
   }
 
-
-
   return (
     <>
       {productsInCart.map((product) => (
@@ -42,7 +40,7 @@ export const ProductsInCart = () => {
             className='hover:underline cursor-pointer'
           >
             <ProductImage
-              src={product.image}
+              src={product.image.url}
               width={100}
               height={100}
               style={{ width: '100px', height: '100px' }}
