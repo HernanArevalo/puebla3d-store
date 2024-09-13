@@ -1,6 +1,6 @@
 import { ProductInStock } from "@/interfaces";
 
-export const checkCorrectInstockForm = ( inStock: ProductInStock[]): boolean => {
+export const validateInstockForm = ( inStock: ProductInStock[]): boolean => {
   // Recorrer cada item del array inStock
   for (const item of inStock) {
     if (
