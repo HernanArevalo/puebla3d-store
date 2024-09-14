@@ -7,6 +7,7 @@ import { deliveryValue } from '@/utils';
 
 interface ProductToOrder {
   productId: string;
+  title: string;
   quantity: number;
   size: string;
   color: string;
@@ -41,6 +42,7 @@ export const placeOrder = async (
       inStock: {
         include: {
           colors: true,
+
         },
       },
     },
@@ -201,6 +203,7 @@ export const placeOrder = async (
 
                 return {
                   quantity: p.quantity,
+                  title: p.title,
                   size: p.size,
                   color: p.color,
                   productId: p.productId,
