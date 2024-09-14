@@ -46,7 +46,7 @@ export interface Order{
   
     userId: string
 
-    OrderItems:   OrderItem[];
+    OrderItems?:   OrderItem[];
     OrderAddress?: OrderAddress | null;
   
     discountCodeId?: string | null;
