@@ -47,14 +47,14 @@ export const TransferPayment = ({ productsPrice, shippingPrice, paymentMethodSel
   const onSaveTransferImage = () => {
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-  
-      // Convertir el archivo a base64
+
+      
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = async () => {
         const base64 = reader.result as string;
-        // Llamar a la Server Action pasando la imagen en base64
-        const {ok} = await uploadTransferImage(order.id, base64);
+        
+        const { ok } = await uploadTransferImage(order.id, base64);
 
         if (ok) {
           setPaymentMethodSelected(undefined)
@@ -79,9 +79,21 @@ export const TransferPayment = ({ productsPrice, shippingPrice, paymentMethodSel
             <div className="flex flex-col gap-2">
               <div className="bg-white p-3 rounded-md w-full">
                 <div className="grid grid-cols-2">
-                  <span className='mt-4 text-xl font-semibold'>Total:</span>
-                  <span className='mt-4 text-xl text-right font-semibold'>{currencyFormat((productsPrice + shippingPrice) * (1 - discount))}</span>
-                  <span className="font-semibold text-puebla-dark">Descuento ({discount * 100}%)</span>
+                  <span className="font-semibold">Productos:</span>
+                  <span className='text-right'>{currencyFormat(order.total)}</span>
+
+                  <span className="font-semibold">Envío ({order.shippingMethod}):</span>
+                  <span className='text-right'>{currencyFormat(order.shippingAmount)}</span>
+
+                  <span className='mt-4 text-lg font-semibold'>Subtotal:</span>
+                  <span className='mt-4 text-lg text-right font-semibold'>{currencyFormat((productsPrice + shippingPrice))}</span>
+
+                  <span className="font-semibold text-puebla-dark">Descuento ({discount * 100}%):</span>
+                  <span className="font-semibold text-right text-puebla-dark">{currencyFormat((productsPrice + shippingPrice) * (discount))}</span>
+
+
+                  <span className='mt-4 text-2xl font-semibold'>Total:</span>
+                  <span className='mt-4 text-2xl text-right font-semibold'>{currencyFormat((productsPrice + shippingPrice) * (1 - discount))}</span>
                 </div>
               </div>
               <div className="bg-white p-3 rounded-md w-full">
@@ -112,22 +124,22 @@ export const TransferPayment = ({ productsPrice, shippingPrice, paymentMethodSel
               </div>
               <div className="bg-white p-3 rounded-md w-full border">
                 <h4 className="font-bold  text-xl mb-3">Enviar comprobante:</h4>
-                
+
                 <section className="container">
-                  <div {...getRootProps({ className: 'dropzone border-2 bg-gray-200 flex justify-center items-center p-3 text-center border-dashed border-gray-300 cursor-pointer'})}>
+                  <div {...getRootProps({ className: 'dropzone border-2 bg-gray-200 flex justify-center items-center p-3 text-center border-dashed border-gray-300 cursor-pointer' })}>
                     <input {...getInputProps()} />
                     <p>Agregá la imagen del comprobante acá!</p>
                   </div>
-                  { acceptedFiles.length > 0 &&
-                  <aside className="mt-3 flex flex-col">
-                    <h4 className="font-semibold">Archivo:</h4>
-                    <span className="break-words">
-                      {acceptedFiles[0].name}
-                    </span>
-                    <div className="flex flex-row gap-2 items-center justify-center">
-                      <button className="btn-dark mt-5" onClick={onSaveTransferImage}>Enviar comprobante</button>
-                    </div>
-                  </aside>
+                  {acceptedFiles.length > 0 &&
+                    <aside className="mt-3 flex flex-col">
+                      <h4 className="font-semibold">Archivo:</h4>
+                      <span className="break-words">
+                        {acceptedFiles[0].name}
+                      </span>
+                      <div className="flex flex-row gap-2 items-center justify-center">
+                        <button className="btn-dark mt-5" onClick={onSaveTransferImage}>Enviar comprobante</button>
+                      </div>
+                    </aside>
                   }
                 </section>
               </div>
