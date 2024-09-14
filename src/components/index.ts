@@ -8,6 +8,7 @@ export * from './discount-codes/CodesTable'
 export * from './discount-codes/NewCodeButton'
 
 export * from './orders/OrderStatus'
+export * from './orders/OrderRow'
 
 export * from './paypal/PayPalButton'
 
