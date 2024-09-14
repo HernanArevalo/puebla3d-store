@@ -4,6 +4,7 @@ import { getOrderById } from '@/actions';
 import { OrderStatus, ProductImage, SubtitleNM, TitleNM } from '@/components';
 import { currencyFormat } from '@/utils';
 import { OrderSummary } from './components';
+import Link from 'next/link';
 
 interface Props {
   params: {
@@ -31,35 +32,41 @@ export default async function OrderPage({ params }: Props) {
           {/* Cart */}
           <div className="flex flex-col">
             <TitleNM title={`Pedido confirmado`} />
-            <SubtitleNM title={`#${id.split('-').at(-1)}`} className='font-thin mb-5' />
+            <SubtitleNM title={`#${id.split('-').at(0)}`} className='font-thin mb-5' />
             <OrderStatus status={order.status} className="mb-5"/>
-            {order?.OrderItems.map((item) => (
+            {order?.OrderItems.map((product) => (
               <div
-                className="flex gap-5 mb-2"
-                key={item.slug + '-' + item.size}
+              className='flex gap-5 mb-7 text-lg'
+              key={`${product.slug}-${product.size}-${product.color}`}
+            >
+              <Link
+                href={`/product/${product.slug}`}
+                className='hover:underline cursor-pointer'
               >
                 <ProductImage
-                  src={item.image}
+                  src={product.image}
                   width={100}
                   height={100}
                   style={{ width: '100px', height: '100px' }}
-                  alt={item.title}
+                  alt={product.title}
                   className='rounded'
                 />
-                <div>
-                  <p className="capitalize">
-                    {item.title} - {item.size}
+              </Link>
+              <div className=''>
+                <Link
+                  href={`/product/${product.slug}`}
+                  className='hover:underline cursor-pointer'
+                >
+                  <p className='font-bold'>
+                    {product.title} <span className="font-light text-base">x {product.quantity}</span>
                   </p>
-                  <p>
-                    {currencyFormat(item.price)} x {item.quantity}
+                  <p className='capitalize'>
+                    {product.color} - <span className="capitalize">{product.size}</span>
                   </p>
-                  <p className="font-bold">
-                    Subtotal: {currencyFormat(item.price * item.quantity)}
-                  </p>
-
-                  <button className="underline mt-1">Borrar</button>
-                </div>
+                </Link>
+                <p>$ {product.price}</p>
               </div>
+            </div>
             ))}
           </div>
 
