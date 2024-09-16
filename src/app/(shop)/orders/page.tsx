@@ -3,6 +3,7 @@ export const revalidate = 0;
 // https://tailwindcomponents.com/component/hoverable-table
 import { getOrdersByUser } from '@/actions';
 import { OrderRow, Title } from '@/components';
+import { redirect } from 'next/navigation';
 
 export default async function OrdersPage() {
 
