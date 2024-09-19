@@ -1,39 +1,38 @@
 
-export * from './address/delete-user-address'
-export * from './address/get-user-address'
-export * from './address/set-user-address'
+export {deleteUserAddress} from './address/delete-user-address'
+export { getUserAddress } from './address/get-user-address'
+export { setUserAddress } from './address/set-user-address'
 
-export * from './categories/get-categories'
+export { getCategories } from './categories/get-categories'
 
-export * from './codes/create-code'
-export * from './codes/update-code'
-export * from './codes/delete-code'
-export * from './codes/get-codes'
+export { createCode } from './codes/create-code'
+export { createUpdateCode } from './codes/update-code'
+export { deleteCode } from './codes/delete-code'
+export { getCodes } from './codes/get-codes'
 
-export * from './country/get-countries'
+export { getCountries } from './country/get-countries'
 
-export * from './order/get-order'
-export * from './order/get-orders-by-user'
-export * from './order/get-paginated-orders'
-export * from './order/place-order'
+export { getOrderById } from './order/get-order'
+export { getOrdersByUser } from './order/get-orders-by-user'
+export { getPaginatedOrders } from './order/get-paginated-orders'
+export { placeOrder } from './order/place-order'
 
-export * from './payments/mercadopago-payment'
-export * from './payments/set-transaction-id'
-export * from './payments/paypal-check-payment'
-export * from './payments/upload-transfer-image'
+export { mercadopagoPayment } from './payments/mercadopago-payment'
+export { setTransactionId } from './payments/set-transaction-id'
+export { paypalCheckPayment } from './payments/paypal-check-payment'
+export { uploadTransferImage } from './payments/upload-transfer-image'
 
-export * from './product/create-update-product'
-export * from './product/delete-product-image'
-export * from './product/get-product-by-slug'
-export * from './product/get-stock-by-slug'
+export { createUpdateProduct } from './product/create-update-product'
+export { deleteProductImage } from './product/delete-product-image'
+export { getProductBySlug } from './product/get-product-by-slug'
 
-export * from './products/product-pagination'
-export * from './products/get-cart-products'
+export { getPaginatedProductsWithImages } from './products/product-pagination'
+export { getCartProducts } from './products/get-cart-products'
 
-export * from './province/get-provinces'
+export { getProvinces } from './province/get-provinces'
 
-export * from './users/change-user-role'
-export * from './users/get-paginated-users'
+export { changeUserRole } from './users/change-user-role'
+export { getPaginatedUsers } from './users/get-paginated-users'
 
 
 
