@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run prisma:deploy && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:deploy": "npx prisma migrate deploy && prisma generate",
     "seed": "ts-node src/seed/seed-database.ts"
   },
   "dependencies": {
+    "@mercadopago/sdk-react": "^0.0.19",
     "@paypal/paypal-js": "^8.0.5",
     "@paypal/react-paypal-js": "^8.3.0",
     "@prisma/client": "^5.10.2",
