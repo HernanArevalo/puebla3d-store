@@ -23,7 +23,6 @@ export * from './product/color-selector/ColorSelector'
 export * from './product/product-image/ProductImage'
 export * from './product/quantity-selector/QuantitySelector'
 export * from './product/size-selector/SizeSelector'
-export * from './product/stock-label/StockLabel'
 
 export * from './providers/Providers'
 

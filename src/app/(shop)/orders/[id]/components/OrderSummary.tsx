@@ -6,6 +6,7 @@ import { currencyFormat, discount } from "@/utils"
 import { TransferPayment } from "./TransferPayment"
 import { Order } from "@/interfaces"
 import { useState } from "react";
+import { mercadopagoPayment } from "@/actions";
 
 interface Props {
   order: Order
@@ -77,7 +78,7 @@ export const OrderSummary = ({ order }: Props) => {
                       <span className="font-semibold text-puebla-dark">3 cuotas sin interés</span>
                     </div>
                     <div className="w-full flex justify-center">
-                      <button className="btn-dark" onClick={() => setPaymentMethodSelected('MP')}>Mercado Pago</button>
+                      <button className="btn-dark" onClick={() => mercadopagoPayment(order)}>Mercado Pago</button>
                     </div>
 
                   </>

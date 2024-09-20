@@ -10,7 +10,7 @@ interface Props {
 
 export const ProductsGridItem = ({ product }:Props) => {
 
-    const [displayImage, setDisplayImage] = useState( product.images[0] )
+    const [displayImage, setDisplayImage] = useState( product.images[0].url )
 
   return (
     <div className="rounded-md overflow-hidden fade-in">
@@ -22,8 +22,8 @@ export const ProductsGridItem = ({ product }:Props) => {
                 className="w-full object-cover rounded overflow-hidden"
                 width={ 500 }
                 height={ 500 }
-                onMouseEnter={()=>{ setDisplayImage(product.images[1]) }}
-                onMouseLeave={()=>{ setDisplayImage(product.images[0]) }}
+                onMouseEnter={()=>{ setDisplayImage(product.images[1].url) }}
+                onMouseLeave={()=>{ setDisplayImage(product.images[0].url) }}
             />
         </Link>
         <div className="p-4 flex flex-col">

@@ -29,6 +29,8 @@ export const getPaginatedProductsWithImages = async ({
           take: 2,
           select: {
             url: true,
+            productId: true,
+            id: true
           },
         },
         inStock: {
@@ -65,7 +67,7 @@ export const getPaginatedProductsWithImages = async ({
   
       return {
         ...productRest,
-        images: product.ProductImage.map(image => image.url),
+        images: product.ProductImage,
         colors: Array.from(allColors),
         price: minPrice,
       };
