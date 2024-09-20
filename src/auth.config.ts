@@ -49,6 +49,7 @@ export const authConfig: NextAuthConfig = {
       authorization: "https://accounts.google.com/o/oauth2/auth?prompt=select_account",
     })
   ],
+  trustHost: true
 };
 
 export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);
