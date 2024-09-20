@@ -22,7 +22,7 @@ export const useAddressStore = create<State>()(
         province: '',
         country: '',
         phone: '',
-        shippingMethod: ''
+        shippingMethod: 'RETIRO'
       },
 
       setAddress: (address) => {
