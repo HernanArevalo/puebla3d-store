@@ -21,7 +21,7 @@ const nextConfig = {
     ],
   },
   publicRuntimeConfig: {
-    metadataBase: 'http://localhost:3000', // Cambia esto a la URL de tu producción
+    metadataBase: 'https://puebla.hernanarevalo.com.ar/', // Cambia esto a la URL de tu producción
   },
 }
 
