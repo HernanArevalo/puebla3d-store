@@ -23,6 +23,6 @@ const nextConfig = {
   publicRuntimeConfig: {
     metadataBase: 'https://puebla.hernanarevalo.com.ar/', // Cambia esto a la URL de tu producción
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
