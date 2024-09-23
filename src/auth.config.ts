@@ -29,14 +29,26 @@ export const authConfig: NextAuthConfig = {
           data: {
             name: session.user.name || '',
             email: session.user.email,
-            image: session.user.image || 'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg'
+            image:
+              session.user.image ||
+              'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg',
+          },
+        });
+      } else {
+        existingUser = await prisma.user.update({
+          where: { email: session.user.email },
+          data: {
+            name: session.user.name || '',
+            image:
+              session.user.image ||
+              'https://as2.ftcdn.net/v2/jpg/03/31/69/91/1000_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg',
           },
         });
       }
 
-      session.user = { 
-        ...session.user, 
-        ...existingUser 
+      session.user = {
+        ...session.user,
+        ...existingUser
       };
 
       return session;
